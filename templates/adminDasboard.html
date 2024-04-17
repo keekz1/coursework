@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 200px;
+            margin: 50px auto;
+            height: 600px;
+            padding: 20px;
+            background-color: #ADD8E6;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            margin-left: 20px; /* Adjust the left margin */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .info {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        p {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .btn1-container {
+            display: flex;
+            align-items: center;
+            
+            margin-left:600px;
+            margin-top:-700px;
+           
+         
+             /* Adjust the margin-top value */
+            text-decoration: none;
+        }
+
+        .btn1-container a {
+            text-decoration: none;
+          
+          
+        }
+
+        .btn {
+            padding: 10px 20px;
+            margin-right:20px;
+        
+            background-color: #20B2AA;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+           
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Position the file input off-screen */
+        #file-input {
+            display: none;
+        }
+
+        .dropdown {
+            position: relative;
+           
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            width: 160px; /* Adjust the width of the dropdown menu */
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            padding: 12px 16px;
+            z-index: 1;
+            top: 100%; /* Position the dropdown menu below the button */
+            left: 0; /* Align the left edge of the dropdown menu with the button */
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 0;
+            text-decoration: none;
+            display: block;
+            cursor: pointer;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="profile-container">
+            <label for="file-input">
+                <img class="profile-pic" id="profile-pic" src="https://via.placeholder.com/150" alt="Profile Picture">
+                <input type="file" id="file-input" onchange="previewImage(event)">
+            </label>
+            <p class="user-name">{{ user.username }}</p>
+            <h1>Hello, {{ user.username }}!</h1>
+            <p>This is the admin dashboard.</p>
+        </div>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <div class="btn1-container">
+        <a href="/admin/" class="btn">Admin</a>
+        <div class="dropdown">
+            <button class="btn dropbtn">List</button>
+            <div class="dropdown-content">
+                <a href="/list/1/">List 1</a>
+                <a href="/list/2/">List 2</a>
+                <a href="/list/3/">List 2</a>
+                
+                
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function(){
+                var output = document.getElementById('profile-pic');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        function logout() {
+            alert("Logged out successfully!");
+        }
+    </script>
+</body>
+</html>

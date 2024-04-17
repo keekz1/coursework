@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Multiple User Registration</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        /* Custom CSS for Registration Page */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 350px;
+        }
+
+        .form-block {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-block h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-block span {
+            font-size: 16px;
+            color: #666;
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="password"],
+        .form-group input[type="checkbox"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        .checkbox-group {
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group label {
+            font-size: 16px;
+            color: #333;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .text-error {
+            color: red;
+            font-size: 14px;
+        }
+
+        /* Custom CSS for Code Field */
+        .code-field {
+            display: none; /* Initially hidden */
+        }
+    </style>
+</head>
+<body>
+
+<div class="content">
+    <div class="container">
+        <div class="form-block">
+            <h1>User Registration Page</h1>
+            <span>
+                {% if msg %}
+                    {{ msg | safe }}
+                {% else %}
+                    Login page
+                {% endif %}
+            </span>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username</label>
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                {{ form.email}}
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                {{ form.password1 }}
+            </div>
+            <div class="form-group">
+                <label for="password">Confirm Password</label>
+                {{ form.password2 }}
+            </div>
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox" name="is_admin" id="is_admin" onclick="handleCheckboxClick('is_admin')"> Admin
+                </label>
+                <label>
+                    <input type="checkbox" name="is_customer" id="is_customer" onclick="handleCheckboxClick('is_customer')"> Customer
+                </label>
+                <label>
+                    <input type="checkbox" name="is_employee" id="is_employee" onclick="handleCheckboxClick('is_employee')"> Employee
+                </label>
+                <label>
+                    <input type="checkbox" name="approve" id="approve"> Email Confirmation
+                </label>
+            </div>
+            <div class="form-group code-field" id="code-field">
+                <label for="code"> Code:</label>
+                <input type="text" name="code" id="code">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Register" class="btn-primary">
+            </div>
+            <div class="text-error">
+                {{ form.errors }}
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function handleCheckboxClick(checkboxId) {
+        const checkboxes = document.querySelectorAll('.checkbox-group input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            if (checkbox.id !== checkboxId && checkbox.checked) {
+                checkbox.checked = false;
+                toggleCodeField(false);  // Hide code field if another checkbox is checked
+            }
+        });
+        
+        if (checkboxId === 'is_admin' || checkboxId === 'is_employee') {
+            toggleCodeField(true);  // Show code field if admin or employee checkbox is checked
+        }
+    }
+
+    function toggleCodeField(show) {
+        const codeField = document.getElementById('code-field');
+        codeField.style.display = show ? 'block' : 'none';
+    }
+</script>
+
+</body>
+</html>

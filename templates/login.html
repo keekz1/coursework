@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Multiple user login</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        /* Custom CSS for Login Page */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 350px;
+        }
+
+        .form-block {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-block span {
+            font-size: 16px;
+            color: #666;
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        .checkbox-group {
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .checkbox-group label {
+            margin-right: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .forgot-pass {
+            font-size: 14px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .forgot-pass:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="content">
+    <div class="container">
+        <div class="form-block">
+            <span>
+                {% if msg %}
+                    {{ msg | safe }}
+                {% else %}
+                    Login page
+                {% endif %}
+            </span>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" class="form-control">
+            </div>
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox" name="remember" checked="checked"> Remember me
+                </label>
+                <a href="#" class="forgot-pass">Forgot Password</a>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Log In" class="btn-primary">
+            </div>
+        </form>
+        
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+{% load static %}
+{% autoescape off %}
+Hi {{ user.username }},
+
+Please click on the following link to confirm your account:
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+
+Thanks!
+{{ current_site.domain }} Team
+{% endautoescape %}
