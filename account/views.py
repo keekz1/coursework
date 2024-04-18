@@ -75,6 +75,7 @@ def confirm_email(request, uidb64, token):
         messages.error(request, 'Invalid activation link.')
         return redirect('activation_error')
     
+   
 def login_view(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -149,6 +150,28 @@ def activate(request, uidb64, token):
         messages.error(request, _('Invalid activation link.'))
         print('Invalid activation link')
         return render(request, 'activation_error.html')
+
+
+
+def activate(request, uidb64, token):
+    try:
+        uid = urlsafe_base64_decode(uidb64).decode()
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user is not None and account_activation_token.check_token(user, token):
+        # Ensure activation link is not expired
+        if user.date_joined + timezone.timedelta(minutes=3) >= timezone.now():
+            user.email_confirmed = True
+            user.save()
+            messages.success(request, 'Your account has been activated successfully.')
+            return redirect(reverse('login'))  # Redirect to the login page
+        else:
+            messages.error(request, 'Activation link has expired. Please request a new one.')
+    else:
+        messages.error(request, 'Invalid activation link.')
+    return render(request, 'activation_error.html')  # Render an error page
 
 
 @login_required

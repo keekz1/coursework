@@ -23,15 +23,22 @@ class SignUpForm(UserCreationForm):
     password2 = forms.CharField(
         widget=forms.PasswordInput(attrs={"class": "form-control"})
     )
-    approve = forms.BooleanField(label='Approve', required=False)  # Add the "Approve" checkbox
+    is_admin = forms.BooleanField(label='Admin', required=False)
+    is_customer = forms.BooleanField(label='Customer', required=False)
+    is_employee = forms.BooleanField(label='Employee', required=False)
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2', 'approve')  # Include the "approve" field
+        fields = ('username', 'email', 'password1', 'password2', 'is_admin', 'is_customer', 'is_employee')
 
-class CustomUserCreationForm(forms.ModelForm):
-    approve = forms.BooleanField(label='Approve', required=False)
-
-    class Meta:
-        model = User
-        fields = '__all__'
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        if self.cleaned_data.get('is_admin'):
+            user.is_admin = True
+        if self.cleaned_data.get('is_customer'):
+            user.is_customer = True
+        if self.cleaned_data.get('is_employee'):
+            user.is_employee = True
+        if commit:
+            user.save()
+        return user

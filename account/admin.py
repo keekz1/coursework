@@ -27,12 +27,20 @@ class CustomUserAdmin(BaseUserAdmin):
     )
 
     # Customize admin actions
-    actions = ['approve_users']
+    actions = ['approve_users', 'confirm_email']
 
     # Admin action to approve selected users
     def approve_users(self, request, queryset):
         queryset.update(is_approved=True)
     approve_users.short_description = "Approve selected users"
+
+    # Admin action to confirm email and activate accounts
+    def confirm_email(self, request, queryset):
+        for user in queryset:
+            user.email_confirmed = True
+            user.is_active = True
+            user.save()
+    confirm_email.short_description = "Confirm email and activate accounts"
 
     # Make only approve_login and permissions fields editable
     def get_readonly_fields(self, request, obj=None):
@@ -50,7 +58,6 @@ class CustomUserAdmin(BaseUserAdmin):
         
         obj.save()
 
-
     # Customize the fields displayed in the admin interface
     list_display = ('username', 'email', 'first_name', 'last_name', 'is_superuser' ,'is_active', 'is_customer', 'is_employee','is_admin')
  
@@ -62,5 +69,6 @@ class CustomUserAdmin(BaseUserAdmin):
             return 'Active'  # Custom label for active non-staff members
         else:
             return 'Inactive'
+
 # Register the custom UserAdmin class
 admin.site.register(User, CustomUserAdmin)

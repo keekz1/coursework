@@ -8,7 +8,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-a5w#s8w02_887j5(#_0by
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Debug mode
-DEBUG = False
+DEBUG = True 
+
+
 
 # Allowed hosts
 ALLOWED_HOSTS = ['127.0.0.1']
@@ -62,6 +64,7 @@ TEMPLATES = [
         },
     },
 ]
+EMAIL_CONFIRMATION_REQUIRED = True
 
 # WSGI application
 WSGI_APPLICATION = 'myworld.wsgi.application'
@@ -100,9 +103,12 @@ USE_TZ = True
 # Static files configuration
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    str(BASE_DIR / 'static'),
+    BASE_DIR / "static",
 ]
+
 STATIC_ROOT = str(BASE_DIR / 'staticfiles')
+
+
 
 # Custom authentication backends
 AUTHENTICATION_BACKENDS = [

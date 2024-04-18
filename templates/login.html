@@ -117,7 +117,7 @@
                 {% endif %}
             </span>
         </div>
-        <form method="post">
+        <form method="post" action="{% url 'login' %}">
             {% csrf_token %}
             <div class="form-group">
                 <label for="username">Username</label>
