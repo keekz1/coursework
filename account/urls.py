@@ -26,6 +26,11 @@ urlpatterns = [
 
     # Others
     path('registration-success/', views.registration_success, name='registration_success'),
+
+    path('itemDiv', views.itemDiv, name='itemDiv'),
+
+
+
 ]
 
 # Add this if you are serving media files during development

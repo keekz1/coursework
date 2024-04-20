@@ -39,7 +39,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'account.middleware.ApprovalMiddleware',  # Custom middleware added here
+    'account.middleware.ApprovalMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Custom middleware added here
 ]
 
 # Root URL configuration
@@ -50,7 +51,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            str(BASE_DIR / 'templates'),  # Convert Path object to string
+            os.path.join(BASE_DIR / 'templates'),  # Convert Path object to string
             str(BASE_DIR / 'account' / 'templates'),  # Convert Path object to string
         ],
         'APP_DIRS': True,
@@ -101,12 +102,12 @@ USE_L10N = True
 USE_TZ = True
 
 # Static files configuration
-STATIC_URL = '/static/'
+STATIC_URL = 'staticfiles/'
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    BASE_DIR / "staticfiles",
 ]
 
-STATIC_ROOT = str(BASE_DIR / 'staticfiles')
+STATIC_ROOT = str(BASE_DIR / 'productionfiles')
 
 
 

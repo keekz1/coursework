@@ -17,9 +17,18 @@ from .tokens import account_activation_token
 from django.utils import timezone
 from account.models import User
 
+
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_decode
+from django.contrib import messages
+from django.utils import timezone
+
+from django.utils.translation import gettext_lazy as _
+
 def home(request):
     return render(request, 'homepage.html')
-
+def home(request):
+    return render(request, 'homepage.html')
 
 def custom_admin_login_view(request, **kwargs):
     response = login(request, **kwargs)
@@ -116,13 +125,6 @@ def login_view(request):
 
     return render(request, 'login.html', {'form': form})
 
-from django.contrib.auth.tokens import default_token_generator
-from django.utils.http import urlsafe_base64_decode
-from django.contrib import messages
-from django.utils import timezone
-
-from django.utils.translation import gettext_lazy as _
-
 def activate(request, uidb64, token):
     try:
         uid = urlsafe_base64_decode(uidb64)
@@ -208,3 +210,8 @@ def pending_approval_view(request):
 
 def registration_success(request):
     return render(request, 'registration_success.html')
+
+
+def itemDiv(request):
+    return render(request, 'itemDiv.html')
+

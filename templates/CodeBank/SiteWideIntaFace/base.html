@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    
+    <link rel="stylesheet" type="text/css" href="/CodeBank/SiteWideIntaFace/sSUnified.css"/>
+
+    
+    
+
+
+    
+</head>
+<body>
+{% block content %}
+
+{% endblock %}
+<script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "15vw";
+    }
+    
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+    }
+
+    function openWindow() {
+        var i = 0;
+        while(i == 0){
+            if (document.getElementById("myLinkWindow").style.width =="85vw"){
+                closeWindow();
+            }else{
+            closeNav();
+            document.getElementById("mySiteMapWindow").style.height = "80vh";
+            var iframe = document.createElement("iframe");
+            iframe.src = "demo_iframe.htm";
+            iframe.name ="iframe_a";
+            iframe.id = "siteMapFrame";
+            iframe.height = "0";
+            iframe.width = "0";
+            iframe.title="Iframe Example"
+            document.getElementById("mySiteMapWindow").appendChild(iframe);
+            document.getElementById("siteMapFrame").style.width = "100vw";
+            document.getElementById("siteMapFrame").style.height = "80vh";
+            i++
+            }
+        }
+    }
+
+    function closeWindow() {
+        var iframes = document.querySelectorAll('iframe');
+        for (var i = 0; i < iframes.length; i++) {
+        iframes[i].parentNode.removeChild(iframes[i]);
+        }  
+        document.getElementById("myLinkWindow").style.width = "0";
+  
+    }
+
+    function openSignupWindow() {
+        var i = 0;
+        while(i == 0){
+            if (document.getElementById("mySiteMapWindow").style.height =="80vh"){
+                closeSiteMapWindow();
+            }else{
+            document.getElementById("myLinkWindow").style.width = "85vw";
+            var iframe = document.createElement("iframe");
+            iframe.src = "demo_iframe.htm";
+            iframe.name ="iframe_a";
+            iframe.id = "linkWindowFrame";
+            iframe.height = "0";
+            iframe.width = "0";
+            iframe.title="Iframe Example"
+            document.getElementById("myLinkWindow").appendChild(iframe);
+            document.getElementById("linkWindowFrame").style.width = "85vw";
+            document.getElementById("linkWindowFrame").style.height = "99vh";
+            i++
+            }
+        }
+    }
+
+    function closeSiteMapWindow() {
+        var iframes = document.querySelectorAll('iframe');
+        for (var i = 0; i < iframes.length; i++) {
+        iframes[i].parentNode.removeChild(iframes[i]);
+        }    
+        document.getElementById("mySiteMapWindow").style.height = "0";
+
+    }
+
+</script>
+    
+</body>
+</html>

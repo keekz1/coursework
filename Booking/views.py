@@ -102,3 +102,16 @@ def list_view(request, id):
     saved_items = ls.item_set.all()
 
     return render(request, "main/list.html", {"ls": ls, "unsaved_items": unsaved_items, "saved_items": saved_items})
+
+def Search_Engine(request):
+    if request.method == "POST":
+        searched = request.POST['searched']
+        items = Item.objects.filter( text = searched)
+
+        return render(request,
+        'Search_Engine.html', 
+        {'searched':searched,'user':items})
+    else:
+        return render(request,
+        'Search_Engine.html', 
+        {})
