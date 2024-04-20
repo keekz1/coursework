@@ -1,91 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Home Page</title>
+{% extends "base.html" %}
+{% load static %}
+<!--href="http://localhost:3000/CodeBank/LoginPages/PHP/LogInPage.php"-->
+{% block MenuPullout %}
+
+    <div><a href="/login" class="navbar-button">Login</a></div>
+    <div><a href="/register" class="navbar-button">Signup</a></span></div>
+    <div><span onclick="openSearchWindow()"><a target="iframe_a">Search</a></span></div>
+    <div><span onclick="openCartWindow()"><a href="http://localhost:3000/CodeBank/LoginPages/PHP/LogInPage.php">Cart</a></span></div>
+
+{% endblock MenuPullout %}
+
+ 
+
+{% block content %}
+
+
+
+
+
+<div id="main">
+    <!--Com2).↓The Link Gallery↓-->
     
-    <!-- Custom CSS -->
-    <style>
-        /* Navbar */
-        .navbar {
-            background-color: #f8f9fa;
-            padding: 15px 0;
-        }
+    
+    <div class="ItemFrame">
 
-        .container {
-            margin-right: auto;
-            margin-left: auto;
-            padding-right: 15px;
-            padding-left: 15px;
-        }
+        
 
-        .navbar-brand {
-            font-size: 24px;
-            font-weight: bold;
-            color: #343a40;
-            text-decoration: none;
-        }
+        <div class="gallery" id="gallery1"><span onclick="openItemWindow()">
+            <a href="/login"  target="iframe_a">  
+                <img src="{% static 'img/Fortnite.jpg' %}" alt="Fortnite" width="1024" height="10124">
+            </a></span>
+            <div class="desc"> Battle Royale</div>
+        </div>
+        
+        <div class="gallery" id="gallery2"><span onclick="openItemWindow()">
+            <a href="/CodeBank/FunctionalityPages/HTML/itemSubPage.html" target="iframe_a">  
+                <img src="{% static 'img/skyrim.jpg' %}" alt="Skyrim" width="1024" height="10124">
+            </a></span>
+            <div class="desc">RPG</div>
+        </div>
+        
+        <div class="gallery" id="gallery3"><span onclick="openItemWindow()">
+            <a href="/CodeBank/FunctionalityPages/HTML/itemSubPage.html" target="iframe_a">  
+                <img src="{% static 'img/MWII.jpg' %}" alt="MWII" width="1024" height="10124">
+            </a></span>
+            <div class="desc">FPS</div>
+        </div>
 
-        .navbar-links {
-            margin-left: auto;
-        }
+        <div class="gallery" id="gallery4"><span onclick="openItemWindow()">
+            <a href="/CodeBank/FunctionalityPages/HTML/itemSubPage.html" target="iframe_a">  
+                <img src="{% static 'img/maxresdefault.jpg' %}" alt="AOE" width="1024" height="10124">
+            </a></span>
+            <div class="desc">Stratergy</div>
+            </div>
+        
+    </div>
+        <!--↑ end of Com2). ↑-->
 
-        .navbar-link {
-            margin-right: 20px;
-            font-size: 18px;
-            color: #343a40;
-            text-decoration: none;
-        }
 
-        .navbar-button {
-            padding: 8px 20px;
-            font-size: 18px;
-            color: #fff;
-            background-color: #28a745;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-        }
 
-        /* Content */
-        .container {
-            padding-top: 50px;
-            padding-bottom: 50px;
-        }
+   
+    
 
-        /* Footer */
-        .footer {
-            background-color: #343a40;
-            color: #fff;
-            padding: 40px 0;
-        }
 
-        .footer h3 {
-            color: #fff;
-        }
+<!--↓close div class="main↓-->
+</div>
 
-        .footer-menu {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .footer-menu li {
-            margin-bottom: 10px;
-        }
-
-        .footer-menu a {
-            color: #fff;
-            text-decoration: none;
-        }
-
-        .footer-menu a:hover {
-            text-decoration: underline;
-        }
-    </style>
+{% endblock content %}
+<!--
 </head>
 <body>
-
 <nav class="navbar">
     <div class="container">
         <a href="/" class="navbar-brand">Home Page</a>
@@ -128,4 +112,4 @@
 </footer>
 
 </body>
-</html>
+</html>-->
