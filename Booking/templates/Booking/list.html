@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Title Here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .container {
+        display: flex;
+        justify-content: space-between;
+        margin: 20px;
+    }
+
+    .left-column, .right-column {
+        flex: 1;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .item-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .item-container img {
+        max-width: 150px;
+        margin-right: 20px;
+        border-radius: 5px;
+    }
+
+    .item-container span {
+        margin-right: 20px;
+        font-size: 16px;
+    }
+
+    .search-bar {
+        margin: 20px;
+    }
+
+    #search-input {
+        padding: 10px;
+        width: 100%;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+    }
+
+    .add-item-form {
+        margin-top: 20px;
+    }
+
+    .add-item-form input[type="text"], .add-item-form input[type="file"] {
+        padding: 10px;
+        margin-right: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+    }
+
+    #customFileBtn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    #customFileBtn:hover {
+        background-color: #0056b3;
+    }
+
+    .add-item-form button[type="submit"] {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #28a745;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .add-item-form button[type="submit"]:hover {
+        background-color: #218838;
+    }
+
+    .delete-button {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        background-color: #dc3545;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .delete-button:hover {
+        background-color: #c82333;
+    }
+
+    .edit-button {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        background-color: #ffc107;
+        color: #fff;
+        cursor: pointer;
+        position: relative;
+    }
+    
+    .edit-menu {
+        display: none;
+        position: absolute;
+        top: calc(100% + 5px); /* Adjust the vertical position */
+        left: 0;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 1;
+        width: auto;
+        min-width: 150px; /* Set a minimum width */
+    }
+    
+    .edit-menu ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .edit-menu button {
+        display: block;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+    }
+    
+    .edit-menu button:hover {
+        background-color: #0056b3;
+    }
+    
+    
+</style>
+</head>
+<body>
+
+<div class="search-bar">
+    <input type="text" id="search-input" placeholder="Search items">
+</div>
+
+<main class="container">
+    <div class="left-column">
+        <h2>List of equipment</h2>
+        <ul id="saved-items">
+            {% for item in saved_items %}
+            <li class="item-container">
+                <span>{{ item.text }}</span>
+                {% for image in item.image_set.all %}
+                    <img src="{{ image.image.url }}" alt="{{ item.text }} Image">
+                {% endfor %}
+                <form method="post" action="">
+                    {% csrf_token %}
+                </form>
+                <button type="button" class="edit-button" aria-label="Edit">Edit</button>
+                <div class="edit-menu" style="display: none;">
+                    <ul>
+                        <li><button type="button" class="edit-item-btn">Edit Item</button></li>
+                        <li><form method="post" action="">
+                            {% csrf_token %}
+                            <input type="hidden" name="delete_item" value="{{ item.id }}">
+                            <button type="submit" class="delete-button" aria-label="Delete">Delete</button>
+                        </form></li>
+                        <li><button type="button" class="update-item-btn">Update Item</button></li>
+                    </ul>
+                </div>
+            </li>
+            {% empty %}
+            <li>No saved items</li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+    <div class="right-column">
+        <h2>My List</h2>
+        <ul id="unsaved-items">
+            {% for unsaved_item in unsaved_items %}
+            <li class="item-container">
+                <span>{{ unsaved_item.text }}</span>
+                {% if unsaved_item.image %}
+                <img src="{{ unsaved_item.image.url }}" alt="{{ unsaved_item.text }} Image">
+                {% endif %}
+                <button type="button" class="edit-button" aria-label="Edit">Edit</button>
+                <div class="edit-menu" style="display: none;">
+                    <ul>
+                        <li><button type="button" class="edit-item-btn">Edit Item</button></li>
+                        <form method="post" action="{% url 'delete_item' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="itemId" value="{{ unsaved_item.id }}">
+                            <button type="submit" class="delete-button" aria-label="Delete">Delete</button>
+                        </form>
+                        <li><button type="button" class="update-item-btn">Update Item</button></li>
+                    </ul>
+                </div>
+            </li>
+            {% empty %}
+            <li>No unsaved items</li>
+            {% endfor %}
+        </ul>
+        
+        <form method="post" action="{% url 'list_view' id=ls.id %}" enctype="multipart/form-data" class="add-item-form">
+            {% csrf_token %}
+            <input type="text" name="new_item_text" placeholder="Add new item">
+            <input type="file" id="fileInput" name="item_image" style="display: none;">
+            <button type="button" id="customFileBtn" aria-label="Add Image">+</button>
+            <button type="submit" name="add_item" aria-label="Add Item">Add Item</button>
+            <button type="submit" name="save" aria-label="Save">Save</button>
+        </form>
+    </div>
+    
+    </div>
+</main>
+
+
+<script>
+    // Show/hide edit menu when the edit button is clicked
+    document.querySelectorAll('.edit-button').forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            var editMenu = this.nextElementSibling;
+            editMenu.style.display = editMenu.style.display === 'none' ? 'block' : 'none';
+            event.stopPropagation();
+        });
+    });
+
+    // Close the edit menu if clicked outside
+    document.addEventListener('click', function(event) {
+        document.querySelectorAll('.edit-menu').forEach(function(editMenu) {
+            if (editMenu.style.display === 'block' && event.target !== editMenu.previousElementSibling) {
+                editMenu.style.display = 'none';
+            }
+        });
+    });
+
+    // Add functionality to edit menu buttons for saved items
+    document.querySelectorAll('.edit-item-btn').forEach(function(button) {
+        button.addEventListener('click', function() {
+            alert('Edit item button clicked');
+        });
+
+        
+    });
+    
+    
+    document.querySelectorAll('.delete-button').forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            var itemIdInput = this.closest('.item-container').querySelector('input[name="delete_item"]');
+            var itemId = itemIdInput.value; // Get the item ID from the hidden input
+            
+            fetch('/delete-item/', { // Replace with your backend endpoint for item deletion
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken') // Ensure CSRF token is included
+                },
+                body: JSON.stringify({ itemId: itemId })
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Item deleted successfully');
+                    // Remove the item from the DOM
+                    var listItem = this.closest('.item-container');
+                    listItem.remove();
+                } else {
+                    console.error('Failed to delete item');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+            
+            event.stopPropagation();
+        });
+    });
+    
+    
+    document.querySelectorAll('.update-item-btn').forEach(function(button) {
+        button.addEventListener('click', function() {
+            alert('Update item button clicked');
+        });
+    });
+
+    // Function to handle custom file input button
+    document.getElementById('customFileBtn').addEventListener('click', function() {
+        document.getElementById('fileInput').click();
+    });
+</script>
+</body>
+</html>

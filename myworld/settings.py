@@ -13,7 +13,7 @@ DEBUG = True
 
 
 # Allowed hosts
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Custom user model
 AUTH_USER_MODEL = 'account.User'
@@ -124,6 +124,13 @@ OAUTH2_PROVIDER = {
         'groups': 'Access to your groups',
     }
 }
+
+
+# Media root directory where uploaded files will be stored
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# Media URL to serve uploaded files
+MEDIA_URL = '/media/'
 
 # Email Configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

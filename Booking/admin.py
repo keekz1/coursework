@@ -1,12 +1,8 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from django.contrib.auth.models import User
-from .models import ToDoList, Item
+from .models import Item, ToDoList
 
+class ItemAdmin(admin.ModelAdmin):
+    list_display = ('id', 'lists','itemName','itemType','itemRentalPeriod', 'itemDes', 'complete')  # Include 'id' in list display
 
-
-
+admin.site.register(Item, ItemAdmin)
 admin.site.register(ToDoList)
-admin.site.register(Item)
-
-
