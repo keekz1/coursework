@@ -101,6 +101,7 @@ def list_view(request, id):
     # Retrieve saved items
     saved_items = ls.item_set.all()
 
+<<<<<<< HEAD
     return render(request, "Booking/list.html", {"ls": ls, "unsaved_items": unsaved_items, "saved_items": saved_items})
 
 @login_required
@@ -145,3 +146,19 @@ def delete_item(request):
                 return JsonResponse({'success': False, 'error': 'Item not found'})
     else:
         return JsonResponse({'success': False, 'error': 'Invalid request method'})  # Return an error response for invalid request method
+=======
+    return render(request, "main/list.html", {"ls": ls, "unsaved_items": unsaved_items, "saved_items": saved_items})
+
+def Search_Engine(request):
+    if request.method == "POST":
+        searched = request.POST['searched']
+        items = Item.objects.filter( text = searched)
+
+        return render(request,
+        'Search_Engine.html', 
+        {'searched':searched,'user':items})
+    else:
+        return render(request,
+        'Search_Engine.html', 
+        {})
+>>>>>>> e02c072fbd14da945f6127def07210df43e7a399

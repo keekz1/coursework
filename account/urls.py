@@ -26,7 +26,15 @@ urlpatterns = [
 
     # Others
     path('registration-success/', views.registration_success, name='registration_success'),
+<<<<<<< HEAD
     
  
+=======
+
+    path('itemDiv', views.itemDiv, name='itemDiv'),
+
+
+
+>>>>>>> e02c072fbd14da945f6127def07210df43e7a399
 ]
 
