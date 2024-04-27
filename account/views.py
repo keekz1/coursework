@@ -4,7 +4,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from .forms import SignUpForm, LoginForm
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
@@ -16,6 +16,7 @@ from django.contrib.auth.models import User
 from .tokens import account_activation_token
 from django.utils import timezone
 from account.models import User
+from Booking.models import Item
 
 
 from django.contrib.auth.tokens import default_token_generator
@@ -25,10 +26,20 @@ from django.utils import timezone
 
 from django.utils.translation import gettext_lazy as _
 
+@login_required
 def home(request):
-    return render(request, 'homepage.html')
-def home(request):
-    return render(request, 'homepage.html')
+    # Fetch items from the database
+    items = Item.objects.all()
+    
+    # Pass items to the template context
+    context = {
+        'items': items
+    }
+    
+    # Render the homepage template with the context
+    return render(request, 'homepage.html', context)
+
+
 
 def custom_admin_login_view(request, **kwargs):
     response = login(request, **kwargs)
@@ -193,7 +204,7 @@ def admin_page(request):
 
 
 def customer(request):
-    return render(request, 'customer.html')
+    return render(request, 'homepage.html')
 
 
 def employee(request):
@@ -211,6 +222,8 @@ def pending_approval_view(request):
 def registration_success(request):
     return render(request, 'registration_success.html')
 
+def profile_page(request):
+    return render(request, 'Codebank/UserPages/Html/profilePage.html')
 
 def itemDiv(request):
     return render(request, 'itemDiv.html')

@@ -51,8 +51,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR / 'templates'),  # Convert Path object to string
-            str(BASE_DIR / 'account' / 'templates'),  # Convert Path object to string
+             os.path.join(BASE_DIR, 'templates'),  # Main templates directory
+             os.path.join(BASE_DIR, 'Booking', 'templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -102,7 +102,7 @@ USE_L10N = True
 USE_TZ = True
 
 # Static files configuration
-STATIC_URL = 'staticfiles/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "staticfiles",
 ]

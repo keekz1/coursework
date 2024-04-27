@@ -26,15 +26,8 @@ urlpatterns = [
 
     # Others
     path('registration-success/', views.registration_success, name='registration_success'),
-<<<<<<< HEAD
-    
- 
-=======
+        path('CodeBank/UserPages/HTML/profilePage.html', views.profile_page, name='profile_page'),
 
-    path('itemDiv', views.itemDiv, name='itemDiv'),
-
-
-
->>>>>>> e02c072fbd14da945f6127def07210df43e7a399
 ]
 
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

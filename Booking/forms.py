@@ -1,35 +1,24 @@
 from django import forms
-from multiupload.fields import MultiFileField
-from .models import Item, SavedItem
+from .models import UnsavedItem, SavedItem
+
+class AddItemForm(forms.ModelForm):
+    image = forms.ImageField(label="Image")
+    rental_period = forms.CharField(label="Rental Period", required=False)  # Add rental period field
+
+    class Meta:
+        model = UnsavedItem
+        fields = ['name', 'type', 'description', 'rental_period', 'image']  # Include rental period field
+
+    def __init__(self, *args, **kwargs):
+        super(AddItemForm, self).__init__(*args, **kwargs)
+        self.fields['image'].required = True  # Ensure image field is required
 
 
-from multiupload.fields import MultiFileField
+class SavedItemForm(forms.ModelForm):
+    class Meta:
+        model = SavedItem
+        fields = ['name', 'type', 'description', 'image']
 
 class CreateNewList(forms.Form):
     name = forms.CharField(label="Name", max_length=200)
     check = forms.BooleanField()
-
-class AddItemForm(forms.ModelForm):
-    image = forms.ImageField(label="Image", required=True)
-
-    class Meta:
-        model = Item
-        fields = ['itemDes', 'image']
-
-class SaveForm(forms.Form):
-    pass
-
-class SavedItemForm(forms.ModelForm):
-    images = MultiFileField(min_num=1, max_num=10, max_file_size=1024*1024*5)
-
-    class Meta:
-        model = SavedItem
-        fields = ['itemDes', 'images']
-
-
-
-from django import forms
-from multiupload.fields import MultiFileField
-
-class AddMultipleImagesForm(forms.Form):
-    images = MultiFileField(max_num=10, max_file_size=1024*1024*5)

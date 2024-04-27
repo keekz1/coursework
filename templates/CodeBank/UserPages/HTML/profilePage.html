@@ -1,3 +1,6 @@
+
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,16 +9,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Page</title>
     
-    <link rel="stylesheet" type="text/css" href="/CodeBank/SiteWideCSS/sSUnified.css"/>
-
+    <style>
+        /* Global Styles */
+        body {
+            background-color: #EDF6FD;
+            font-family: sans-serif;
+            margin: 0vw;
+            color: #C5C3C0;
+        }
     
+        /* Navigation Styles */
+        .navBar {
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background-color: #333; /* Adjust as needed */
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            z-index: 1000;
+        }
     
-
+        .navBar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 25px;
+            color: white;
+            display: block;
+        }
+    
+        .navBar a:hover {
+            background-color: #ddd; /* Adjust as needed */
+            color: black;
+        }
+    
+        .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+    
+        /* Gallery Styles */
+        .galFrame {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+    
+        .gallery {
+            margin: 10px;
+            border: 1px solid #ccc; /* Adjust as needed */
+            float: left;
+            width: 300px;
+            background-color: #f9f9f9; /* Adjust as needed */
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+    
+        .gallery:hover {
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
+    
+        .gallery img {
+            width: 100%;
+            height: auto;
+        }
+    
+        .desc {
+            padding: 15px;
+            text-align: center;
+        }
+    </style>
 
     
 </head>
 <body>
-    <!--pop out menu-->
 <div id="mySidenav" class="navBar">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <div><span onclick="openWindow()"><a href="http://localhost:3000/CodeBank/LoginPages/PHP/LogInPage.php">Login</a></span></div>
