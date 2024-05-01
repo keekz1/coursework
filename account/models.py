@@ -2,23 +2,27 @@ from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
 
 
+
+class Image(models.Model):
+    user = models.ForeignKey('User', on_delete=models.CASCADE)
+    Image = models.ImageField(upload_to='profile_pic' )
+
 class User(AbstractUser):
-    is_admin = models.BooleanField(default=False)
-    is_customer = models.BooleanField(default=False)
-    is_employee = models.BooleanField(default=False)
-    is_approved = models.BooleanField(default=False, verbose_name='approved')  
-    approve_login = models.BooleanField(default=False, verbose_name='approve login')  # Add the new field
+    id              = models.CharField(primary_key=True,max_length=50, default=False)
+    is_admin        = models.BooleanField(default=False)
+    is_customer     = models.BooleanField(default=False)
+    is_employee     = models.BooleanField(default=False)
+    is_approved     = models.BooleanField(default=False, verbose_name='approved')  
+    approve_login   = models.BooleanField(default=False, verbose_name='approve login')  # Add the new field
     email_confirmed = models.BooleanField(default=False)
-
-    custom_groups = models.ManyToManyField(Group, verbose_name='groups', blank=True, related_name='custom_users') 
-    custom_permissions = models.ManyToManyField(Permission, verbose_name='user permissions', blank=True, related_name='custom_users')
-
     class Meta(AbstractUser.Meta):
         permissions = [
             ('can_add_group', 'Can add group'),
             ('can_delete_group', 'Can delete group'),
             ('can_change_group', 'Can change group'),
         ]
+    def _str_(self):
+        return self.id
 
 
 class RegistrationRequest(models.Model):
