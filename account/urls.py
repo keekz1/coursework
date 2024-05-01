@@ -9,15 +9,16 @@ urlpatterns = [
     
 
     path('', views.home, name='home'),
+    path('homepage/', views.home, name='homepage'),
+
     path('login/', views.login_view, name='login'),
-    path('register/', views.register, name='register'),
     path('register/', views.register, name='register'),
     path('confirm/<str:uidb64>/<str:token>/', views.confirm_email, name='confirm_email'),
     path('activate/<uidb64>/<token>/', views.activate, name='activate'),
 
     # User Roles
     path('admin-dashboard/', views.admin_dashboard, name='admin_dashboard'),
-    path('customer/', views.customer, name='customer'),
+    path('customer/', views.my_view, name='customer'),
     path('employee/', views.employee, name='employee'),
 
     # Admin
@@ -26,7 +27,9 @@ urlpatterns = [
 
     # Others
     path('registration-success/', views.registration_success, name='registration_success'),
-        path('CodeBank/UserPages/HTML/profilePage.html', views.profile_page, name='profile_page'),
+    path('profile/', views.profile_page, name='profile'),
+    path('logout/', views.logout_view, name='logout'),
+
 
 ]
 

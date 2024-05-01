@@ -26,7 +26,7 @@ from django.utils import timezone
 
 from django.utils.translation import gettext_lazy as _
 
-@login_required
+
 def home(request):
     # Fetch items from the database
     items = Item.objects.all()
@@ -204,7 +204,7 @@ def admin_page(request):
 
 
 def customer(request):
-    return render(request, 'homepage.html')
+    return render(request, 'customer.html')
 
 
 def employee(request):
@@ -223,8 +223,24 @@ def registration_success(request):
     return render(request, 'registration_success.html')
 
 def profile_page(request):
-    return render(request, 'Codebank/UserPages/Html/profilePage.html')
+    return render(request, 'CodeBank/UserPages/Html/profilePage.html')
 
 def itemDiv(request):
     return render(request, 'itemDiv.html')
 
+
+
+
+def my_view(request):
+    if request.user.is_authenticated:  # Check if the user is authenticated
+        customer = request.user  # Assuming the user is logged in and represents a customer
+        token = default_token_generator.make_token(request.user)  # Generate a token for the authenticated user
+        
+        # Fetch all items from the database
+        items = Item.objects.all()
+        
+        # Pass customer information, token, and items to the template context
+        return render(request, 'customer.html', {'customer': customer, 'token': token, 'items': items})
+    else:
+        # Handle the case when the user is not authenticated
+        return render(request, 'login_required.html')  # Render a template indicating that login is required

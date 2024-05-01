@@ -13,7 +13,9 @@ urlpatterns = [
     path("list/<int:id>/", views.list_view, name="list_view"),  
  
         #Search Engine
-    path('Search-Engine', views.Search_Engine, name='Search_Engine'),
+    path('search_items/', views.Search_Engine, name='search_items'),
+    path('item/<int:item_id>/', views.item_info, name='item'),
+
 
 
 

@@ -55,7 +55,7 @@ body input{
   color                     : #C5C3C0;
 }
 
-body button{
+.butt2{
   position                  : absolute;
   font-size                 : larger;
   left                      : 30vw;
@@ -573,10 +573,11 @@ div.textDiv p{
   grid-row      : 2;
   font-size: small;
 }
-div.textDiv button{
+.butt1{
   grid-column   : 1;
   grid-row      : 3;
-  height: vh;
+  
+  
 }
 
 

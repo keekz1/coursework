@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+{% block MenuPullout %}
+
+    <div><a href="{% url 'homepage' %}" class="navbar-button">home</a></div>
+    <div><span onclick="openCartWindow()"><a href="http://localhost:3000/CodeBank/LoginPages/PHP/LogInPage.php">Cart</a></span></div>
+    <div><span onclick="toggleSearchWindow()"><a class="navbar-button" target="iframe_a">Search</a></span></div>
+    <div><a href="/register" class="navbar-button">Profile</a></span></div>
+    <div><a href="/register" class="navbar-button">Settings</a></span></div>
+    <div><a href=" {% url 'logout' %}" class="navbar-button">Logout</a></div>
+
+{% endblock MenuPullout %}
+
+ 
+
+{% block content %}
+
+<div class="container">
+    <br/>
+    <div class="card mb-3">
+        <div class="row g-0"> 
+            <div class="col-md-4">
+                <img class="card-img-top" src="{{ item.image.url }}" alt="{{ item.name }}" />
+            </div>
+            <div class="col-md-8" style="max-width: 25vw;" >
+                <div class="card-body">
+                    <h3 class="card-title">{{item.name}}</h3>                    
+                    {{item.description|linebreaksbr}}
+                </div>
+            </div>
+            <div class="col-md-9" style="max-width: 25vw;" >
+                <div class="card-body">
+                    <br><br>
+                    <h3 class="card-title">Product Type : {{item.type}}</h3>
+                    <br>
+                    <h3 class="card-title">Rental Period: {{item.rental_period}}</h3>
+                    <button class="butt3" type="submit"> Add Item </button>
+                
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

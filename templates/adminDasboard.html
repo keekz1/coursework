@@ -6,12 +6,27 @@
     <title>Admin Dashboard</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f2f2f2;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #f0f0f0 0%, #dcdcdc 100%);
+            background-size: 100% 200%;
+            animation: gradient 15s linear infinite;
         }
 
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Add your custom styles here */
         .container {
             max-width: 200px;
             margin: 50px auto;
@@ -71,30 +86,22 @@
         .btn1-container {
             display: flex;
             align-items: center;
-            
             margin-left:600px;
             margin-top:-700px;
-           
-         
-             /* Adjust the margin-top value */
             text-decoration: none;
         }
 
         .btn1-container a {
             text-decoration: none;
-          
-          
         }
 
         .btn {
             padding: 10px 20px;
             margin-right:20px;
-        
             background-color: #20B2AA;
             color: #fff;
             border: none;
             border-radius: 5px;
-           
             font-size: 16px;
             transition: background-color 0.3s;
         }
@@ -110,7 +117,6 @@
 
         .dropdown {
             position: relative;
-           
         }
 
         .dropdown-content {
@@ -140,7 +146,22 @@
         .dropdown-content a:hover {
             background-color: #ddd;
         }
-
+        .navbar-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #20B2AA;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none; /* Remove underline */
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .navbar-button:hover {
+            background-color: #0056b3;
+        }
+        
     </style>
 </head>
 <body>
@@ -154,7 +175,8 @@
             <h1>Hello, {{ user.username }}!</h1>
             <p>This is the admin dashboard.</p>
         </div>
-        <button class="logout-btn" onclick="logout()">Logout</button>
+        <div><a href="{% url 'logout' %}" class="navbar-button">Logout</a></div>
+
     </div>
 
     <div class="btn1-container">
@@ -169,7 +191,13 @@
                 
             </div>
         </div>
-    </div>
+
+<!-- Add the button to view homepage as a customer -->
+<a href="{% url 'customer' %}" class="btn">View Homepage as Customer</a>
+</div>
+</div>
+</div>
+
 
     <script>
         function previewImage(event) {

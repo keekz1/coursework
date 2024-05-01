@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+{% block MenuPullout %}
+
+    <div><a href="{% url 'profile' %}" class="navbar-button">Profile</a></div>
+    <div><span onclick="toggleSearchWindow()"><a class="navbar-button" target="iframe_a">Search</a></span></div>
+
+    {% if customer.is_authenticated %}
+        <div><a href="{% url 'logout' %}" class="navbar-button">Logout</a></div>
+    {% endif %}
+
+{% endblock MenuPullout %}
+
+{% block content %}
+
+    <div id="main">
+        <!--Com2).↓The Link Gallery↓-->
+        <div class="ItemFrame">
+            <!-- Display customer name and profile picture -->
+            {% if customer.is_authenticated %}
+                <div>Welcome, {{ customer.username }}</div>
+                {% if customer.profile.picture %}
+                    <img src="{{ customer.profile.picture.url }}" alt="Profile Picture">
+                {% endif %}
+            {% endif %}
+            
+            {% include 'index.html' %}
+        </div>
+        <!--↑ end of Com2). ↑-->
+    </div>
+    <!--↓close div class="main↓-->
+
+{% endblock content %}

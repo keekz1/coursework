@@ -102,13 +102,12 @@ USE_L10N = True
 USE_TZ = True
 
 # Static files configuration
+# Static files configuration
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "staticfiles",
 ]
-
 STATIC_ROOT = str(BASE_DIR / 'productionfiles')
-
 
 
 # Custom authentication backends

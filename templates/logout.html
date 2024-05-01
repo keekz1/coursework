@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout</title>
+    <!-- Add any CSS styling or external stylesheets here -->
+</head>
+<body>
+    <div>
+        <h1>Logged Out Successfully</h1>
+        <p>You have been logged out.</p>
+        <!-- You can add any additional content or messages here -->
+        
+        <!-- Check if the user is authenticated -->
+        {% if user.is_authenticated %}
+            <p><a href="{% url 'logout' %}">Logout</a></p>
+
+
+            <!-- Render the logout button if the user is authenticated -->
+        {% endif %}
+        
+        <a href="{% url 'login' %}?next={{ request.path }}">Login</a>
+        <p><a href="{% url 'homepage' %}">home</a></p>
+
+        <!-- Always provide a link to redirect the user to the login page -->
+    </div>
+</body>
+</html>

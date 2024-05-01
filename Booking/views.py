@@ -7,6 +7,8 @@ from .forms import CreateNewList,AddItemForm
 from PIL import Image as PILImage
 from io import BytesIO
 import os
+from django.shortcuts import render, get_object_or_404
+
 
 from django.conf import settings
 
@@ -120,3 +122,9 @@ def Search_Engine(request):
         return render(request, 'Search_Engine.html', {'searched': searched, 'items': items})
     else:
         return render(request, 'Search_Engine.html', {})
+    
+
+def item_info(request, item_id):
+    # Retrieve the item object using its ID
+    item = get_object_or_404(Item, id=item_id)
+    return render(request, 'iteminfo.html', {'item': item})
