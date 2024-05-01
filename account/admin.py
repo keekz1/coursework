@@ -19,7 +19,7 @@ class CustomUserAdmin(BaseUserAdmin):
 
     # Customize the fields displayed in the admin interface
     fieldsets = (
-        (None, {'fields': ('username', 'password')}),
+        (None, {'fields': ('id','username', 'password')}),
         ('Personal info', {'fields': ('first_name', 'last_name', 'email')}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions', )}),
         ('Important dates', {'fields': ('last_login', 'date_joined')}),
@@ -59,7 +59,7 @@ class CustomUserAdmin(BaseUserAdmin):
         obj.save()
 
     # Customize the fields displayed in the admin interface
-    list_display = ('username', 'email', 'first_name', 'last_name', 'is_superuser' ,'is_active', 'is_customer', 'is_employee','is_admin')
+    list_display = ('id','username', 'email', 'first_name', 'last_name', 'is_superuser' ,'is_active', 'is_customer', 'is_employee','is_admin')
  
     def custom_staff_status(self, obj):
         # Add your custom logic here to determine the staff status

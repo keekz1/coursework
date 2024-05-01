@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import User
+from multiupload.fields import MultiFileField
 
 class LoginForm(forms.Form):
     username = forms.CharField(
@@ -11,6 +12,17 @@ class LoginForm(forms.Form):
     )
 
 class SignUpForm(UserCreationForm):
+    id = forms.CharField(
+        widget=forms.TextInput(attrs={"class": "form-control"})
+    )
+
+    first_name = forms.CharField(
+        widget=forms.TextInput(attrs={"class": "form-control"})
+    )
+
+    last_name = forms.CharField(
+        widget=forms.TextInput(attrs={"class": "form-control"})
+    )
     username = forms.CharField(
         widget=forms.TextInput(attrs={"class": "form-control"})
     )
@@ -29,7 +41,7 @@ class SignUpForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2', 'is_admin', 'is_customer', 'is_employee')
+        fields = ('id','first_name','last_name','username', 'email', 'password1', 'password2', 'is_admin', 'is_customer', 'is_employee')
 
     def save(self, commit=True):
         user = super().save(commit=False)
