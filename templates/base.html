@@ -7,8 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rent & HIRE</title>
 
+    <link rel="shortcut icon" type="image/png" href="{% static 'assets/favicon.ico' %}" >
+
     <link rel="stylesheet"  href="{% static 'css/sSUnified.css' %}">
     <link rel="stylesheet"  href="{% static 'css/sSIndex.css' %}">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -17,49 +20,53 @@
   <!--Com3). ↓The nav Bar↓-->
  
 <!-- Com4).↓ this is the call element for the menu↓-->
-<nav>
-    <div class="stacisFrame">
 
-        <div class="logoFrame"><span onclick="openNav()"><img src="{% static 'img/logo.png' %}" alt="logo" class="logo"></span></div>
-            <!--↑ end of Com4). ↑-->
-        <div class="Frame3">
-            <div class="SearchFrame">
-                <span onclick="toggleSearchWindow()">
-                    <a href="" target="iframe_a"></a>
-                    <svg xmlns="http://www.w3.org/2000/svg" height="42" width="40.25" viewBox="0 0 512 512">
-                        <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
-                    </svg>
-                </span>
-            </div>
+<div class="stacisFrame">
 
-            
-            <div class="MenuHomeFrame">
-                <span onclick="toggleNav()">&#9776;
-                </span>
-            </div>
+    <div class="logoFrame">
+        <a href="{% url 'home' %}">
+            <img src="{% static 'img/logo.png' %}" alt="logo" class="logo">
+        </a>
+    </div>
 
-            <div class="CartFrame">
-                <span onclick="openItemWindow()">
-                    <a href="/CodeBank/FunctionalityPages/HTML/BookingPage.html" >
-                        <svg xmlns="http://www.w3.org/2000/svg"  height="42" width="40.25" viewBox="0 0 576 512">
-                            <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
-                        </svg>
-                    </a>
-                </span>
-            </div>
-        </div>
-
-
-        <div class="ProfileFrame">
-            <span onclick="openNav()">
-                <a href="/CodeBank/UserPages/HTML/profilePage.html">
-                    <img src="{% static 'img/avatar.png' %}" alt="Avatar" class="avatar">
-                </a>
+        <!--↑ end of Com4). ↑-->
+    <div class="Frame3">
+        <div class="SearchFrame">
+            <span onclick="toggleSearchWindow()">
+                <a href="" target="iframe_a"></a>
+                <svg xmlns="http://www.w3.org/2000/svg" height="42" width="40.25" viewBox="0 0 512 512">
+                    <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
+                </svg>
             </span>
         </div>
-            <!--↑ end of Com3). ↑-->
+
+        
+        <div class="MenuHomeFrame">
+            <span onclick="toggleNav()">&#9776;
+            </span>
+        </div>
+
+        <div class="CartFrame">
+
+            <a href="{% url 'cart-summary' %}" class="btn btn-outline-dark" style="border: 0; font-size: 5vh;">
+                <i class="bi-cart-fill me-1"></i>
+                <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">
+                    {{ cart|length}}
+                </span>
+            </a>
+        </div>
+    </div>
+
+
+    <div class="ProfileFrame">
+        <a href="{% url 'profile' %}">
+                {% load cropping %}
+            <img src="{% cropped_thumbnail user.profile "cropping" scale=1.5%}" default='background.PNG' alt="avatar" class="avatar">
+        </a>
+    </div>
+        <!--↑ end of Com3). ↑-->
 </div>
-</nav>
+
 
 
 
@@ -71,9 +78,12 @@
 {% endblock MenuPullout %}
     </div>
 
-    <div class="backgroundImage"  >
-        <img src={% static 'img/background.PNG' %} id="background" >
-    </div>
+{% block ImageBackground %}
+
+       
+{% endblock ImageBackground %}
+    
+    
     <div class="spacerFrame"></div>
     
         <!--pop out menu-->
@@ -99,6 +109,9 @@
 {% endblock %}
 <!--↑ ↑-->
 <!--script for pop out menu-->
+    <footer class="py-5 bg-dark">
+        <div class="container"><p class="m-0 text-center text-white">Copyright &copy; WESTMINSTER RENT & BUY 2023</p></div>
+    </footer>
     <script>
         function toggleNav() {
             var element = document.getElementById("mySidenav");
@@ -151,10 +164,7 @@
             }
         }
 
-
-        
-
-</script>
+    </script>
     
 </body>
 </html>

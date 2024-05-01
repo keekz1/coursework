@@ -1,13 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
 
 {% block content %}
 
     {% if searched %}
 
         <h2>you searched for {{ searched }}</h2>
-        <br/>
-        {% for item in items %}
+        <h2>{% for item in items %}
 
-            {{ item }}-{{item.self.text}}<br/>
+        {{ item }}<br/>
             
         {% endfor %}
 

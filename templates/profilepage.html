@@ -2,10 +2,11 @@
 {% load static %}
 {% block MenuPullout %}
 
-    <div><a href="{% url 'profile' %}" class="navbar-button">Profile</a></div>
+    <div><a href="{% url 'home' %}" class="navbar-button">Home</a></div>
     <div><a href="{% url 'cart-summary' %}">Cart</a></div>
     <div><span onclick="toggleSearchWindow()"><a class="navbar-button" target="iframe_a">Search</a></span></div>
-    <div><a href="" class="navbar-button">Settings</a></div>
+    <div><a href="{% url 'password_change' %}" class="navbar-button">Change Password</a></div>
+    <div><a href="{% url 'update-user' %}" class="navbar-button">Update User</a></div>
     <div><a href=" {% url 'logout' %}" class="navbar-button">Logout</a></div>
 
 
@@ -14,10 +15,10 @@
 {% block ImageBackground %}
 
 <div class="backgroundImage"  >
-    <img src={% static 'img/background.PNG' %} id="background" >
+    <img src={% static 'img/profileImg.png' %} id="background" >
 </div>
 
-{% endblock ImageBackground %} 
+{% endblock ImageBackground %}
 
 {% block content %}
 
@@ -31,9 +32,7 @@
     
     <div class="ItemFrame">
 
-        {% include 'index.html' %}
-
-
+        {% include 'historicalIndex.html' %}
 
         
     </div>

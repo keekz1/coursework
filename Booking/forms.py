@@ -18,10 +18,6 @@ class AddItemForm(forms.ModelForm):
         self.fields['image'].required = True  # Ensure image field is required
 
 
-class SavedItemForm(forms.ModelForm):
-    class Meta:
-        model = SavedItem
-        fields = ['name', 'type', 'description', 'image']
 
 
 
@@ -85,3 +81,31 @@ class bookItemForm(forms.ModelForm):
         fields = ['image']
 
 
+class UpdateUserForm(forms.ModelForm):
+    username = forms.CharField(max_length=100,
+                               required=True,
+                               widget=forms.TextInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(required=True,
+                             widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+
+
+class UpdateProfileForm(forms.ModelForm):
+    img = ResizedImageField(Image, size=[150, 150], crop=['top', 'right'], quality=75, upload_to="Item_img/", force_format='WEBP', blank=True, )
+    class Meta:
+        model = Profile
+        fields = ['image']
+
+
+class bookItemForm(forms.ModelForm):
+    item_id = forms.CharField(max_length=100,
+                               required=True,
+                               widget=forms.TextInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(required=True,
+                             widget=forms.TextInput(attrs={'class': 'form-control'}))    
+    class Meta:
+        model = Profile
+        fields = ['image']

@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load static %}
+{% block MenuPullout %}
+
+    <div><a href="{% url 'home' %}" class="navbar-button">Home</a></div>
+    <div><a href="{% url 'profile' %}">Profile</a></div>
+    <div><span onclick="toggleSearchWindow()"><a class="navbar-button" target="iframe_a">Search</a></span></div>
+    <div><a href="/register" class="navbar-button">Settings</a></div>
+    <div><a href=" {% url 'logout' %}" class="navbar-button">Logout</a></div>
+
+
+{% endblock MenuPullout %}
+
+{% block ImageBackground %}
+
+<div class="backgroundImage"  >
+    <img src={% static 'img/background.PNG' %} id="background" >
+</div>
+
+{% endblock ImageBackground %}
+
+{% block content %}
+
+
+
+
+
+<div id="main">
+    <!--Com2).↓The Link Gallery↓-->
+    <div class="ItemFrame">
+        {% if cart_items %}
+        {% for item in cart_items %}
+        <div class="container">
+            <br/>
+            <div class="card mb-3">
+                <div class="row g-0"> 
+                    <div class="col-md-4">
+                        <img src="{{ item.img.url }}" class="img-fluid rounded-start" alt="..." />
+                    </div>
+                    <div class="col-md-8" style="max-width: 25vw;" >
+                        <div class="card-body">
+                            <h3 class="card-title">{{item.name}}</h3>                    
+                            {{item.description|linebreaksbr}}
+                        </div>
+                    </div>
+                    <div class="col-md-9" style="max-width: 20vw;" >
+                        <div class="card-body">
+                            <br><br>
+                            <h3 class="card-title">Product Type : {{item.category}}</h3>
+                            <br>
+                            <h3 class="card-title">Rental Period: {{item.period}}</h3><br/>
+                            <button id="delete-item" type="button" value="{{item.id}}" class="btn btn-danger"  >Remove</button>
+                        
+        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><br/>
+        {% endfor %}
+        {% else %}
+        Your card is empty
+        {% endif %}
+        <br><br><br><br><br><br><br><br><br><br>
+
+    </div>
+    </div>
+    <script>
+        $(document).on('click', '#delete-item', function(e){
+            e.preventDefault();
+            // grab the item id
+            var item = $(this).data('index');
+
+            $.ajax({
+                type: 'POST',
+                url: '{% url "cart-delete" %}',
+                data: {
+                    item_id: $(this).val(),
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    action: 'post'
+                },
+            success: function(json){
+                //console.log(json)
+                //document.getElementById("cart_quantity").textContent = json.qty
+                location.reload();
+            },
+
+            error: function(xhr, errmsg, err){
+
+            }
+
+
+            });
+
+        })
+    </script>
+
+
+   
+    
+
+
+<!--↓close div class="main↓-->
+</div>
+
+
+
+{% endblock content %}

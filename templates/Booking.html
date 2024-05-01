@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Page</title>
+  <link rel="stylesheet"  href="{% static 'css/sSIndex.css' %}">
+
+</head>
+<body>
+  <div class="container">
+    <h1>Available Items</h1>
+    <ul class="item-list">
+      <li class="item" onclick="showBookingForm('item1')">
+        <img src="https://via.placeholder.com/150" alt="Item 1">
+        <div>Item 1</div>
+      </li>
+      <!-- Add more items here -->
+    </ul>
+  </div>
+
+  <script>
+    function showBookingForm(itemId) {
+      // Hide all booking forms
+      var forms = document.querySelectorAll('.booking-form');
+      forms.forEach(function(form) {
+        form.classList.remove('active');
+      });
+
+      // Show booking form for the selected item
+      var bookingForm = document.getElementById('bookingForm_' + itemId);
+      if (bookingForm) {
+        bookingForm.classList.add('active');
+      }
+    }
+
+    function addItem() {
+      var itemCount = document.querySelectorAll('.item').length + 1;
+      var itemContainer = document.querySelector('.item-list');
+
+      var newItem = document.createElement('li');
+      newItem.className = 'item';
+      newItem.onclick = function() { showBookingForm('item' + itemCount); };
+
+      var itemImage = document.createElement('img');
+      itemImage.src = 'https://via.placeholder.com/150';
+      itemImage.alt = 'Item ' + itemCount;
+
+      var itemName = document.createElement('div');
+      itemName.textContent = 'Item ' + itemCount;
+
+      newItem.appendChild(itemImage);
+      newItem.appendChild(itemName);
+
+      itemContainer.appendChild(newItem);
+
+      var bookingForm = document.createElement('div');
+      bookingForm.id = 'bookingForm_item' + itemCount;
+      bookingForm.className = 'booking-form';
+
+      var bookingFormContent = `
+        <h2>Book Item ${itemCount}</h2>
+        <form action="#" method="post">
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+          </div>
+          <div class="form-group">
+            <label for="quantity">Quantity:</label>
+            <select id="quantity" name="quantity" required>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <button type="submit">Book Now</button>
+          </div>
+        </form>
+      `;
+      bookingForm.innerHTML = bookingFormContent;
+
+      itemContainer.parentNode.appendChild(bookingForm);
+    }
+  </script>
+
+  <button onclick="addItem()">Add Item</button>
+</body>
+</html>

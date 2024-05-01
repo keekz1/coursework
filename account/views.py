@@ -223,7 +223,7 @@ def registration_success(request):
     return render(request, 'registration_success.html')
 
 def profile_page(request):
-    return render(request, 'CodeBank/UserPages/Html/profilePage.html')
+    return render(request, 'profilePage.html')
 
 def itemDiv(request):
     return render(request, 'itemDiv.html')

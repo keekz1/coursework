@@ -2,16 +2,22 @@
 {% load static %}
 {% block MenuPullout %}
 
-    <div><a href="{% url 'homepage' %}" class="navbar-button">home</a></div>
-    <div><span onclick="openCartWindow()"><a href="http://localhost:3000/CodeBank/LoginPages/PHP/LogInPage.php">Cart</a></span></div>
-    <div><span onclick="toggleSearchWindow()"><a class="navbar-button" target="iframe_a">Search</a></span></div>
-    <div><a href="/register" class="navbar-button">Profile</a></span></div>
-    <div><a href="/register" class="navbar-button">Settings</a></span></div>
+    <div><a href="{% url 'home' %}" class="navbar-button">home</a></div>
+    <div><a href="{% url 'profile' %}" class="navbar-button">Profile</a></span></div>
+    <div><a href="{% url 'cart-summary' %}">Cart</a></div>
+    <div><a class="navbar-button" target="iframe_a">Search</a></div>
+    <div><a href="" class="navbar-button">Settings</a></span></div>
     <div><a href=" {% url 'logout' %}" class="navbar-button">Logout</a></div>
 
 {% endblock MenuPullout %}
 
- 
+{% block ImageBackground %}
+
+<div class="backgroundImage"  >
+    <img src={% static 'img/background.PNG' %} id="background" >
+</div>
+
+{% endblock ImageBackground %}
 
 {% block content %}
 
@@ -20,7 +26,7 @@
     <div class="card mb-3">
         <div class="row g-0"> 
             <div class="col-md-4">
-                <img class="card-img-top" src="{{ item.image.url }}" alt="{{ item.name }}" />
+                <img src="{{ item.img.url }}" class="img-fluid rounded-start" alt="..." />
             </div>
             <div class="col-md-8" style="max-width: 25vw;" >
                 <div class="card-body">
@@ -31,10 +37,10 @@
             <div class="col-md-9" style="max-width: 25vw;" >
                 <div class="card-body">
                     <br><br>
-                    <h3 class="card-title">Product Type : {{item.type}}</h3>
+                    <h3 class="card-title">Product Type : {{item.category}}</h3>
                     <br>
-                    <h3 class="card-title">Rental Period: {{item.rental_period}}</h3>
-                    <button class="butt3" type="submit"> Add Item </button>
+                    <h3 class="card-title">Rental Period: {{item.period}}</h3>
+                    <button  class="butt3" value="{{item.id}}" id ="add_cart"> Add Item </button>
                 
 
                 </div>
@@ -42,5 +48,36 @@
         </div>
     </div>
 </div>
+
+<script>
+    //chech if button pressed
+    $(document).on('click', '#add_cart', function(e){
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'cart-add' %}",
+            data: {
+                item_id: $('#add_cart').val(),
+                csrfmiddlewaretoken:'{{ csrf_token }}',
+                action: 'post'
+            },
+            success: function(json){
+                //console.log(json)
+                document.getElementById("cart_quantity")
+                    textContent = json.qty
+                    location.reload();
+
+            },
+
+            error: function(xhr, errmsg, err){
+
+            }
+
+        });
+    })
+
+</script>
+
+
 
 {% endblock content %}

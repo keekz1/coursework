@@ -4,14 +4,14 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Multiple user login</title>
-
+    <title>Multiple User Registration</title>
+    {{ form.media }}
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
-
+    
     <!-- Custom CSS -->
     <style>
-        /* Custom CSS for Login Page */
+        /* Custom CSS for Registration Page */
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #f8f9fa;
@@ -39,6 +39,12 @@
             margin-bottom: 30px;
         }
 
+        .form-block h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
         .form-block span {
             font-size: 16px;
             color: #666;
@@ -57,8 +63,10 @@
         }
 
         .form-group input[type="text"],
-        .form-group input[type="password"] {
-            width: 100%;
+        .form-group input[type="email"],
+        .form-group input[type="password"],
+        .form-group input[type="checkbox"] {
+            width: calc(100% - 20px);
             padding: 10px;
             border-radius: 5px;
             border: 1px solid #ccc;
@@ -67,12 +75,13 @@
 
         .checkbox-group {
             margin-bottom: 20px;
-            font-size: 16px;
-            color: #333;
         }
 
         .checkbox-group label {
+            font-size: 16px;
+            color: #333;
             margin-right: 10px;
+            cursor: pointer;
         }
 
         .checkbox-group input[type="checkbox"] {
@@ -93,57 +102,58 @@
             background-color: #0056b3;
         }
 
-        .forgot-pass {
+        .text-error {
+            color: red;
             font-size: 14px;
-            color: #007bff;
-            text-decoration: none;
         }
 
-        .forgot-pass:hover {
-            text-decoration: underline;
+        /* Custom CSS for Code Field */
+        .code-field {
+            display: none; /* Initially hidden */
         }
     </style>
 </head>
 <body>
-
-<div class="content">
-    <div class="container">
-        <div class="form-block">
-            <span>
-                {% if msg %}
-                    {{ msg | safe }}
-                {% else %}
-                    Login page
-                {% endif %}
-            </span>
+    <br/><br/><br/><br/><br/><br/>
+    <center>
+<div style="max-width: 20vw; align-items: center;">
+    {% if user_form.errors %}
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <div id="form_errors">
+                {% for key, value in user_form.errors.items %}
+                    <strong>{{ value }}</strong>
+                {% endfor %}
+            </div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
-        <form method="post" action="{% url 'login' %}">
+    {% endif %}
+    <div class="form-content">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" name="username" id="username" class="form-control">
+            <div class="form-row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="small mb-1">Username:</label>
+                            {{ user_form.username }}
+                        <label class="small mb-1">Email:</label>
+                            {{ user_form.email }}
+                    </div>
+                    <div class="form-group">
+                        <a href="#">Change Password</a>
+                        <hr>
+                        <label class="small mb-1">Change Avatar:</label>
+                        {{profile_form.image}}
+                    </div>
+                    
+                </div>
             </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password" class="form-control">
-            </div>
-            <div class="checkbox-group">
-                <label>
-                    <input type="checkbox" name="remember" checked="checked"> Remember me
-                </label>
-                <br/> <br>
-                <a href="#" class="forgot-pass">Forgot Password</a>
-                <br/><br>
-                <a href="{% url 'register' %}" class="forgot-pass">Register</a>
-                <br/>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Log In" class="btn-primary">
-            </div>
+            <br><br>
+            <button type="submit" class="btn btn-dark btn-lg">Save Changes</button>
+            <button type="reset" class="btn btn-dark btn-lg">Reset</button>
         </form>
-        
     </div>
 </div>
-
 </body>
 </html>
