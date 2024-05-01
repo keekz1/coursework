@@ -1,4 +1,4 @@
-from django.urls import path,re_path
+from django.urls import path,re_path,include
 from django.conf import settings
 from django.views.static import serve
 from . import views
@@ -29,6 +29,8 @@ urlpatterns = [
     path('registration-success/', views.registration_success, name='registration_success'),
     path('profile/', views.profile_page, name='profile'),
     path('logout/', views.logout_view, name='logout'),
+    re_path('Booking/', include('Booking.urls')),
+    re_path('Cart/', include('Cart.urls')),
 
 
 ]
