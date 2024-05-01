@@ -43,27 +43,3 @@ def register_user(username, email, password, is_admin=False):
         user.is_active = False  # Deactivate user until approved
     user.save()
     
-
-class Customer(AbstractUser):
-    # Define additional fields specific to the Customer model
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-
-    # Define related names to avoid clashes with the User model
-    groups = models.ManyToManyField(
-        'auth.Group',
-        related_name='customer_groups',
-        blank=True,
-        verbose_name='groups',
-        help_text='The groups this customer belongs to. A customer will get all permissions granted to each of their groups.',
-    )
-    user_permissions = models.ManyToManyField(
-        'auth.Permission',
-        related_name='customer_user_permissions',
-        blank=True,
-        verbose_name='user permissions',
-        help_text='Specific permissions for this customer.',
-        error_messages={
-            'unique': "This customer already has this permission.",
-        },
-    )

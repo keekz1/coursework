@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+{% block MenuPullout %}
+
+    <div><a href="{% url 'home' %}" class="navbar-button">Home</a></div>
+    <div><a href="{% url 'profile' %}">Profile</a></div>
+    <div><span onclick="toggleSearchWindow()"><a class="navbar-button" target="iframe_a">Search</a></span></div>
+    <div><a href="/register" class="navbar-button">Settings</a></div>
+    <div><a href=" {% url 'logout' %}" class="navbar-button">Logout</a></div>
+
+
+{% endblock MenuPullout %}
+
+ 
+
+{% block content %}
+
+
+
+
+
+<div id="main">
+    <!--Com2).↓The Link Gallery↓-->
+    
+    
+    <div class="ItemFrame">
+
+
+
+        
+    </div>
+        <!--↑ end of Com2). ↑-->
+
+
+
+   
+    
+
+
+<!--↓close div class="main↓-->
+</div>
+
+{% endblock content %}
