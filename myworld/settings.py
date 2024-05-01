@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from easy_thumbnails.conf import Settings as thumbnail_settings
 
 # Set the secret key
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-a5w#s8w02_887j5(#_0bym8d+&s18ctd&o@-%(kl*kp)b329*d')
@@ -28,7 +29,12 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'Booking.apps.BookingConfig',
     'oauth2_provider',
+    'easy_thumbnails',
+    'image_cropping',
 ]
+THUMBNAIL_PROCESSING = (
+    'image_cropping.thumbnail_processors.crop_corneres',    
+ ) +  thumbnail_settings.THUMBNAIL_PROCESSORS
 
 # Middleware
 MIDDLEWARE = [
