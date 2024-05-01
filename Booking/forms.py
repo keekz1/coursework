@@ -23,18 +23,11 @@ class SavedItemForm(forms.ModelForm):
         model = SavedItem
         fields = ['name', 'type', 'description', 'image']
 
-class CreateNewList(forms.Form):
-    name = forms.CharField(label="Name", max_length=200)
-    check = forms.BooleanField()
 
 
 
 
 
-
-class CreateNewList(forms.Form):
-    name = forms.CharField(label="Name", max_length=200)
-    check = forms.BooleanField()
 
 class AddItemForm(forms.ModelForm):
     image = forms.ImageField(label="Image", required=True)
