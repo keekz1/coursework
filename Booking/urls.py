@@ -4,7 +4,6 @@ from django.urls import path
 from . import views 
 
 
-
 urlpatterns = [
 
 
@@ -18,9 +17,21 @@ urlpatterns = [
 
 
 
-
     # Map the list_view with ID
     path('delete-item/', views.delete_item, name='delete_item'),
+    
+    path('', views.home, name='homepage'),
+    path('home/', views.home, name='home'),
+    path('profile/', views.profilepage, name='profile'),
+
+
+    path('update_user/', views.profile, name='update-user'),
+
+    
+
+    path('index', views.index, name='index'),
+    
+    path('item/<int:pk>', views.item, name='item'),
 
     # URL pattern for adding multiple images
 

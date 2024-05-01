@@ -2,16 +2,26 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
-from .models import ToDoList, UnsavedItem, Item, Image,SavedItem
+from .models import ToDoList, UnsavedItem, Item,UnsavedItem, Item, Image, Profile
 from .forms import CreateNewList,AddItemForm
 from PIL import Image as PILImage
 from io import BytesIO
 import os
 from django.shortcuts import render, get_object_or_404
+from django.contrib.messages.views import SuccessMessageMixin
+from django.urls import reverse_lazy
+from django.contrib.auth.views import PasswordChangeView
+from .forms import  UpdateUserForm, UpdateProfileForm, AddMultipleImagesForm
+from django.contrib import messages
 
 
 from django.conf import settings
 
+@login_required(login_url='login')
+def home(request):
+    items = Item.objects.all()
+    profile = Profile.objects.all()
+    return render(request, 'homepage.html', { 'profile': profile, 'items': items})
 
 @login_required
 def ind(request, id):
@@ -128,3 +138,33 @@ def item_info(request, item_id):
     # Retrieve the item object using its ID
     item = get_object_or_404(Item, id=item_id)
     return render(request, 'iteminfo.html', {'item': item})
+def profilepage(request):
+    items = Item.objects.all()
+    return render(request, 'profilepage.html',{'items':items})
+
+def update_user(request):
+    return render(request, 'profilepage.html',{})
+
+
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+        profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Your profile is updated successfully')
+            return redirect(to='profile')
+    else:
+        user_form = UpdateUserForm(instance=request.user)
+        profile_form = UpdateProfileForm(instance=request.user.profile)
+
+    return render(request, 'update_user.html', {'user_form': user_form, 'profile_form': profile_form})
+
+
+class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
+    template_name = 'change_password.html'
+    success_message = "Successfully Changed Your Password"
+    success_url = reverse_lazy('home')

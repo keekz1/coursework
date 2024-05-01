@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'account.apps.AccountConfig',
     'Booking.apps.BookingConfig',
+    'Cart.apps.CartConfig',
     'oauth2_provider',
     'easy_thumbnails',
     'image_cropping',
@@ -67,6 +68,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'Cart.context_processors.cart',
             ],
         },
     },
@@ -148,3 +150,7 @@ EMAIL_HOST_PASSWORD = 'jxrt rxfv xrrh fono'  # SMTP password for authentication
 EMAIL_SUBJECT_PREFIX = '[MyApp] '  # Email subject prefix (optional)
 ADMIN_EMAIL = 'hads1kiki@gmail.com'  # Admin email address (optional)
 DEFAULT_FROM_EMAIL = 'hads1kiki@gmail.com'  # Default sender email address (optional)
+
+# IMAGE CROPPING Configuration
+IMAGE_CROPPING_BACKEND = 'image_cropping.backends.easy_thumbs.EasyThumbnailsBackend'
+IMAGE_CROPPING_BACKEND_PARAMS = {}
