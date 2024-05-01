@@ -31,7 +31,6 @@ class CreateNewList(forms.Form):
 
 
 
-from multiupload.fields import MultiFileField
 
 class CreateNewList(forms.Form):
     name = forms.CharField(label="Name", max_length=200)
