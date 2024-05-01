@@ -25,7 +25,7 @@ from django.contrib import messages
 from django.utils import timezone
 
 from django.utils.translation import gettext_lazy as _
-
+from django.conf import settings
 
 def home(request):
     # Fetch items from the database
@@ -105,7 +105,6 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 if user.is_active:
-                    if user.email_confirmed:
                         if user.is_admin:
                             if user.is_approved:
                                 login(request, user)
@@ -119,22 +118,16 @@ def login_view(request):
                             else:
                                 return render(request, 'pending_approval.html')
                         elif user.is_customer:
-                            login(request, user)
-                            return redirect('customer')
-                    else:
-                        return render(request, 'unauthorized.html')
+                                login(request, user)
+                                print("test")
+                                return redirect('customer')
+                    
                 else:
                     return render(request, 'inactive_account.html')
             else:
                 messages.error(request, 'Invalid username or password.')
     else:
         form = LoginForm()
-
-    # If the user is not authenticated, render the login form with an error message
-    if not request.user.is_authenticated:
-        messages.error(request, 'You are not authenticated.')
-
-    return render(request, 'login.html', {'form': form})
 
 def activate(request, uidb64, token):
     try:
@@ -196,18 +189,19 @@ def admin_dashboard(request):
 def logout_view(request):
     logout(request)
     messages.success(request, "You have been successfully logged out.")
-    return render(request, 'logout.html')
+    return render(request, 'login.html')
 
-
+@login_required(login_url='login')
 def admin_page(request):
     return render(request, 'admin.html')
 
-
+@login_required(login_url='login')
 def customer(request):
-    return render(request, 'customer.html')
+    return redirect('Booking/')
 
-
+@login_required(login_url='login')
 def employee(request):
+    return render(request, 'employee.html')
     return render(request, 'employee.html')
 
 
