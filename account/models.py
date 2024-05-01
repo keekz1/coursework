@@ -38,8 +38,8 @@ class RegistrationRequest(models.Model):
         user_instance.save()
 
 
-def register_user(username, email, password, is_admin=False):
-    user = User.objects.create_user(username=username, email=email, password=password)
+def register_user(id, firstName, lastName, username, email, password, is_admin=False):
+    user = User.objects.create_user( id=id, firstName=firstName, lastName=lastName, username=username, email=email, password=password)
     request = RegistrationRequest.objects.create(user=user)
     if is_admin:
         user.is_staff = True
