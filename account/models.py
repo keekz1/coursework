@@ -1,5 +1,7 @@
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
+#rom Booking.models import Profile
+
 
 
 
@@ -40,6 +42,7 @@ class RegistrationRequest(models.Model):
 
 def register_user(id, firstName, lastName, username, email, password, is_admin=False):
     user = User.objects.create_user( id=id, firstName=firstName, lastName=lastName, username=username, email=email, password=password)
+  #  profile = Profile.object.create_Profile(user,img)
     request = RegistrationRequest.objects.create(user=user)
     if is_admin:
         user.is_staff = True

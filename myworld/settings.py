@@ -33,9 +33,10 @@ INSTALLED_APPS = [
     'easy_thumbnails',
     'image_cropping',
 ]
-THUMBNAIL_PROCESSING = (
-    'image_cropping.thumbnail_processors.crop_corneres',    
- ) +  thumbnail_settings.THUMBNAIL_PROCESSORS
+from easy_thumbnails.conf import Settings as thumbnail_settings
+THUMBNAIL_PROCESSORS = (
+    'image_cropping.thumbnail_processors.crop_corners',
+) + thumbnail_settings.THUMBNAIL_PROCESSORS
 
 # Middleware
 MIDDLEWARE = [

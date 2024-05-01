@@ -96,6 +96,7 @@ def confirm_email(request, uidb64, token):
         return redirect('activation_error')
     
    
+  
 def login_view(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -105,6 +106,7 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 if user.is_active:
+                    if user.email_confirmed:
                         if user.is_admin:
                             if user.is_approved:
                                 login(request, user)
@@ -118,10 +120,10 @@ def login_view(request):
                             else:
                                 return render(request, 'pending_approval.html')
                         elif user.is_customer:
-                                login(request, user)
-                                print("test")
-                                return redirect('customer')
-                    
+                            login(request, user)
+                            return redirect('customer')
+                    else:
+                        return render(request, 'unauthorized.html')
                 else:
                     return render(request, 'inactive_account.html')
             else:
@@ -129,33 +131,14 @@ def login_view(request):
     else:
         form = LoginForm()
 
-def activate(request, uidb64, token):
-    try:
-        uid = urlsafe_base64_decode(uidb64)
-        user = User.objects.get(pk=uid)
-    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
-        user = None
+    # If the user is not authenticated, render the login form with an error message
+    if not request.user.is_authenticated:
+        messages.error(request, 'You are not authenticated.')
 
-    if user is not None and default_token_generator.check_token(user, token):
-        token_timestamp = default_token_generator._num_seconds(user.date_joined)
-        current_timestamp = default_token_generator._num_seconds(timezone.now())
-        token_valid_duration = 3 * 60  # 3 minutes in seconds
+    return render(request, 'login.html', {'form': form})
 
-        if current_timestamp - token_timestamp <= token_valid_duration:
-            user.email_confirmed = True
-            user.save()
-            messages.success(request, _('Your account has been activated successfully.'))
-            return redirect('login')
-        else:
-            # Add debugging message for token expiry
-            messages.error(request, _('Activation link has expired. Please request a new one.'))
-            print(f'Token expired: {current_timestamp - token_timestamp} seconds')
-            return render(request, 'activation_error.html')
-    else:
-        # Add debugging message for invalid activation link
-        messages.error(request, _('Invalid activation link.'))
-        print('Invalid activation link')
-        return render(request, 'activation_error.html')
+
+
 
 
 
@@ -189,7 +172,7 @@ def admin_dashboard(request):
 def logout_view(request):
     logout(request)
     messages.success(request, "You have been successfully logged out.")
-    return render(request, 'login.html')
+    return render(request, 'homepage.html')
 
 @login_required(login_url='login')
 def admin_page(request):
@@ -201,7 +184,6 @@ def customer(request):
 
 @login_required(login_url='login')
 def employee(request):
-    return render(request, 'employee.html')
     return render(request, 'employee.html')
 
 

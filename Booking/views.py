@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from .models import ToDoList, UnsavedItem, Item,UnsavedItem, Item, Image, Profile
-from .forms import CreateNewList,AddItemForm
+from .forms import AddItemForm
 from PIL import Image as PILImage
 from io import BytesIO
 import os
@@ -24,7 +24,7 @@ def home(request):
     return render(request, 'homepage.html', { 'profile': profile, 'items': items})
 
 @login_required
-def ind(request, id):
+def index(request, id):
     try:
         ls = ToDoList.objects.get(id=id)
     except ToDoList.DoesNotExist:
@@ -33,18 +33,6 @@ def ind(request, id):
 
 
 
-@login_required
-def create(request):
-    if request.method == "POST":
-        form = CreateNewList(request.POST)
-        if form.is_valid():
-            n = form.cleaned_data["name"]
-            t = ToDoList(name=n)
-            t.save()
-            return HttpResponseRedirect(f"/{t.id}")
-    else:
-        form = CreateNewList()
-    return render(request, "create.html", {"form": form})
 
 def handle_temporary_image_upload(image, description, folder):
     img = PILImage.open(image)

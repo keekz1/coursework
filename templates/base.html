@@ -61,7 +61,7 @@
     <div class="ProfileFrame">
         <a href="{% url 'profile' %}">
                 {% load cropping %}
-            <img src="{% cropped_thumbnail user.profile "cropping" scale=1.5%}" default='background.PNG' alt="avatar" class="avatar">
+            <img src="{% cropped_thumbnail user.profile 'cropping' scale=1.5%}" default='background.PNG' alt="avatar" class="avatar">
         </a>
     </div>
         <!--↑ end of Com3). ↑-->

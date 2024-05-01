@@ -31,7 +31,6 @@ urlpatterns = [
 
     path('index', views.index, name='index'),
     
-    path('item/<int:pk>', views.item, name='item'),
 
     # URL pattern for adding multiple images
 
