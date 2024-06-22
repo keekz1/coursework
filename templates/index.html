@@ -1,5 +1,5 @@
-{% load static %}
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -67,6 +67,14 @@
       .card-footer {
         margin-top: 0;
       }
+      /* Adjust size of product name, rental period, and description */
+      .product-details h5 {
+        font-size: 1rem; /* Adjust the font size of the product name */
+      }
+      .product-details .rental-period,
+      .product-details .description {
+        font-size: 0.85rem; /* Adjust the font size of the rental period and description */
+      }
     </style>
   </head>
   <body>
@@ -74,11 +82,11 @@
     <section class="py-5">
       <div class="container px-4 px-lg-5 mt-5">
         <div
-          class="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
+          class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
         >
           {% for item in items %}
-          <div class="col mb-5">
-            <div class="card h-100">
+          <div class="col">
+            <div class="card">
               <!-- Product image -->
               {% if item.image %}
               <img
@@ -91,7 +99,7 @@
               <div class="card-img-top text-center">No image available</div>
               {% endif %}
               <!-- Product details -->
-              <div class="card-body p-4">
+              <div class="card-body">
                 <div class="text-center product-details">
                   <h5 class="fw-bolder">{{ item.name }}</h5>
                   <p class="mb-0 rental-period">
@@ -102,10 +110,10 @@
                 </div>
               </div>
               <!-- Product actions -->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+              <div class="card-footer border-top-0 bg-transparent">
                 <div class="text-center">
                   <a
-                    class="btn btn-outline-dark mt-auto"
+                    class="btn btn-outline-dark"
                     href="{% url 'item' item.id %}"
                     >View Info</a
                   >
