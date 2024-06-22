@@ -8,10 +8,14 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'your_secret_key_here')
 # Define BASE_DIR
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+import environ
+env=environ.Env()
+environ.Env.read_env()
+
 # Debug mode
-DEBUG = True
+DEBUG = False
 # Allowed hosts
-ALLOWED_HOSTS = ['172.20.10.6','https://courseworkrentplushire.netlify.app/','127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 # Custom user model
 AUTH_USER_MODEL = 'account.User'
@@ -39,6 +43,7 @@ THUMBNAIL_PROCESSORS = (
 # Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add this line
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -46,8 +51,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'account.middleware.ApprovalMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Custom middleware added here
 ]
+
 
 # Root URL configuration
 ROOT_URLCONF = 'myworld.urls'
@@ -76,19 +81,21 @@ TEMPLATES = [
 # WSGI application
 WSGI_APPLICATION = 'myworld.wsgi.application'
 
+# Database configuration
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'verceldb',  # Replace with your database name
-        'USER': 'default',   # Replace with your database username
-        'PASSWORD': 'AZ1s4miXNlPB',  # Replace with your database password
-        'HOST': 'ep-yellow-salad-a4bnv0ob.us-east-1.aws.neon.tech',  # Replace with your database host
-        'PORT': '5432',      # Replace with your database port
-        'OPTIONS': {
-            'sslmode': 'require',
-        },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+import dj_database_url
+
+DATABASES={
+    'default': dj_database_url.parse(env('DATABASE_URL'))
+    
+}
+
 
 # Password validators
 AUTH_PASSWORD_VALIDATORS = [
