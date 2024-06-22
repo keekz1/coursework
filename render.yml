@@ -1,5 +1,0 @@
-# render.yaml
-
-services:
-  - name: web
-    command: gunicorn myworld.wsgi
