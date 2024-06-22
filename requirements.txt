@@ -1,8 +1,8 @@
 # Correcting or removing the problematic line
-# html.parser==0.0.2
+# attrs==0.3.2
 
 # Correct packages and versions
-attrs==0.3.2
+attrs==21.3.0   # Example: Use the latest available version that matches your requirements
 bpython==0.24
 ConfigParser==7.0.0
 contextlib2==21.6.0
@@ -16,6 +16,7 @@ ipywidgets==8.1.2
 jnius==1.1.0
 keyring==25.1.0
 lockfile==0.12.2
+migration==0.2a4.dev-r642
 mock==5.1.0
 mysqlclient==1.4.5
 numpy==1.26.4
