@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Debug mode
 DEBUG = True
 # Allowed hosts
-ALLOWED_HOSTS = ['172.20.10.6', 'https://coursework-4gvq.onrender.com','127.0.0.1']
+ALLOWED_HOSTS = ['172.20.10.6',' https://coursework-r83b.onrender.com','127.0.0.1']
 
 # Custom user model
 AUTH_USER_MODEL = 'account.User'
