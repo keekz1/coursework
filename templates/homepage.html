@@ -1,40 +1,109 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends "base.html" %} {% load static %} {% block MenuPullout %}
+<div class="menu-container">
+  <div><a href="{% url 'profile' %}" class="navbar-button">Profile</a></div>
+  <div><a href="{% url 'cart-summary' %}" class="navbar-button">Cart</a></div>
+  <div>
+    <span onclick="toggleSearchWindow()"
+      ><a class="navbar-button" target="iframe_a">Search</a></span
+    >
+  </div>
+  <div><a href="" class="navbar-button">Settings</a></div>
 
-{% block MenuPullout %}
-
-    <div><a href="{% url 'profile' %}" class="navbar-button">Profile</a></div>
-    <div><a href="{% url 'cart-summary' %}">Cart</a></div>
-    <div><span onclick="toggleSearchWindow()"><a class="navbar-button" target="iframe_a">Search</a></span></div>
-    <div><a href="" class="navbar-button">Settings</a></div>
-
-    {% if user.is_authenticated %}
-        <!-- User is logged in, show logout link -->
-        <div><a href="{% url 'logout' %}" class="navbar-button">Logout</a></div>
-    {% else %}
-        <!-- User is not logged in, show register and login links -->
-        <div><a href="{% url 'register' %}" class="navbar-button">Register</a></div>
-        <div><a href="{% url 'login' %}" class="navbar-button">Login</a></div>
-    {% endif %}
-
-{% endblock MenuPullout %}
-
-{% block ImageBackground %}
-
-<div class="backgroundImage"  >
-    <img src="{% static 'img/background.PNG' %}" id="background" >
+  {% if user.is_authenticated %}
+  <!-- User is logged in, show logout link -->
+  <div><a href="{% url 'logout' %}" class="navbar-button">Logout</a></div>
+  {% else %}
+  <!-- User is not logged in, show register and login links -->
+  <div><a href="{% url 'register' %}" class="navbar-button">Register</a></div>
+  <div><a href="{% url 'login' %}" class="navbar-button">Login</a></div>
+  {% endif %}
 </div>
-
-{% endblock ImageBackground %} 
-
-{% block content %}
-
+{% endblock MenuPullout %} {% block ImageBackground %}
+<div class="backgroundImage">
+  <img
+    src="{% static 'img/background.PNG' %}"
+    id="background"
+    alt="background"
+  />
+</div>
+{% endblock ImageBackground %} {% block content %}
 <div id="main">
-    <!--Com2).↓The Link Gallery↓-->
-    <div class="ItemFrame">
-        {% include 'index.html' %}
-    </div>
-    <!--↑ end of Com2). ↑-->
+  <!-- The Link Gallery -->
+  <div class="ItemFrame">{% include 'index.html' %}</div>
 </div>
-
 {% endblock content %}
+
+<style>
+  /* Styles for responsiveness */
+
+  .menu-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .navbar-button {
+    margin: 5px 0;
+    padding: 10px;
+    font-size: 16px;
+    text-align: center;
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+
+  .backgroundImage {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .backgroundImage img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .ItemFrame {
+    padding: 10px;
+    margin: auto;
+    max-width: 1200px;
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .navbar-button {
+      font-size: 14px;
+      padding: 8px;
+    }
+
+    .backgroundImage img {
+      width: 100%;
+    }
+
+    .ItemFrame {
+      padding: 8px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .navbar-button {
+      font-size: 12px;
+      padding: 6px;
+    }
+
+    .backgroundImage img {
+      width: 100%;
+    }
+
+    .ItemFrame {
+      padding: 5px;
+    }
+  }
+</style>
