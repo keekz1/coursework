@@ -9,8 +9,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'your_secret_key_here')
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 import environ
-env=environ.Env()
+env = environ.Env()
 environ.Env.read_env()
+
 
 # Debug mode
 DEBUG = False
@@ -43,7 +44,7 @@ THUMBNAIL_PROCESSORS = (
 # Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add this line
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add this line for serving static files efficiently
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -91,10 +92,10 @@ DATABASES = {
 
 import dj_database_url
 
-DATABASES={
+DATABASES = {
     'default': dj_database_url.parse(env('DATABASE_URL'))
-    
 }
+
 
 
 # Password validators
@@ -125,7 +126,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "staticfiles",
 ]
-STATIC_ROOT = str(BASE_DIR / 'productionfiles')
+STATIC_ROOT = BASE_DIR / 'productionfiles'
+
 
 # Custom authentication backends
 AUTHENTICATION_BACKENDS = [
@@ -144,10 +146,7 @@ OAUTH2_PROVIDER = {
 
 # Media root directory where uploaded files will be stored
 MEDIA_ROOT = BASE_DIR / 'media'
-
-# Media URL to serve uploaded files
 MEDIA_URL = '/media/'
-
 
 
 # IMAGE CROPPING Configuration
