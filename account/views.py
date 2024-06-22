@@ -61,6 +61,13 @@ def register(request):
             user.is_active = True  # Deactivate the user until they confirm their email
             user.is_staff = True
             user.save()
+        if user.is_admin:
+            user.is_approved=True
+            user.email_confirmed = True
+            user.is_staff = True
+            user.is_superuser = True 
+            user.save()
+            
 
             # Send email with confirmation link
             current_site = get_current_site(request)
@@ -95,15 +102,25 @@ def confirm_email(request, uidb64, token):
         messages.error(request, 'Invalid activation link.')
         return redirect('activation_error')
     
-   
-  
+ 
+ 
+ 
+
+
 def login_view(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
+
+        # Clear any existing session data to ensure a fresh login
+        if request.user.is_authenticated:
+            logout(request)
+            request.session.flush()  # Ensure the session is completely cleared
+
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
+            user = authenticate(request, username=username, password=password)
+
             if user is not None:
                 if user.is_active:
                     if user.email_confirmed:
@@ -112,33 +129,28 @@ def login_view(request):
                                 login(request, user)
                                 return redirect('admin_dashboard')
                             else:
-                                return render(request, 'pending_approval.html')
+                                messages.error(request, 'Your account is pending approval.')
                         elif user.is_employee:
                             if user.is_approved:
                                 login(request, user)
                                 return redirect('employee')
                             else:
-                                return render(request, 'pending_approval.html')
+                                messages.error(request, 'Your account is pending approval.')
                         elif user.is_customer:
                             login(request, user)
-                            return redirect('customer')
+                            return redirect('home')
                     else:
-                        return render(request, 'unauthorized.html')
+                        messages.error(request, 'Your email is not confirmed. Please check your email for the confirmation link.')
                 else:
-                    return render(request, 'inactive_account.html')
+                    messages.error(request, 'Your account is inactive.')
             else:
                 messages.error(request, 'Invalid username or password.')
+        else:
+            messages.error(request, 'Please correct the errors below.')
     else:
         form = LoginForm()
 
-    # If the user is not authenticated, render the login form with an error message
-    if not request.user.is_authenticated:
-        messages.error(request, 'You are not authenticated.')
-
     return render(request, 'login.html', {'form': form})
-
-
-
 
 
 

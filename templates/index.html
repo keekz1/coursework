@@ -1,55 +1,117 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-    
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Shop Homepage - Start Bootstrap Template</title>
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="{% static 'css/sSIndex.css' %}" rel="stylesheet" />
-    </head>
-    <body>
-
-        <!-- Section-->
-        <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    
-                    
-                    {% for item in items %}
-                        
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="{{ item.img.url }}" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">{{item.name}}</h5>
-                                    <!-- Product price-->
-                                    Rental Period: {{item.period}}
-                                </div>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Shop Homepage - Start Bootstrap Template</title>
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{% static 'css/sSIndex.css' %}" rel="stylesheet" />
+    <style>
+        /* Adjust width of columns to make containers smaller */
+        @media (min-width: 576px) {
+            .col {
+                flex: 0 0 50%; /* Set width to 50% for medium devices and above */
+            }
+        }
+        @media (min-width: 768px) {
+            .col {
+                flex: 0 0 33.333333%; /* Set width to 33.333333% for large devices and above */
+            }
+        }
+        @media (min-width: 992px) {
+            .col {
+                flex: 0 0 25%; /* Set width to 25% for extra large devices and above */
+            }
+        }
+        /* Adjust margin-bottom for columns */
+        .col {
+            margin-bottom: 2rem; /* Change to adjust spacing between columns */
+        }
+        /* Adjust card height */
+        .card {
+            height: 100%; /* Set a fixed height for all cards */
+        }
+        
+        .card-body {
+            height: 100%; /* Ensure card body fills the entire card height */
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-details {
+            flex-grow: 1; /* Allow product details to expand vertically */
+        }
+        
+        /* Adjust size of product name, rental period, and description */
+        .product-details h5 {
+            font-size: 1rem; /* Adjust the font size of the product name */
+        }
+        
+        .product-details .rental-period,
+        .product-details .description {
+            font-size: 0.85rem; /* Adjust the font size of the rental period and description */
+        }
+        
+  
+        /* Remove default margin from card footer */
+        .card-footer {
+            margin-top: 0;
+        }
+        /* Adjust size of product name, rental period, and description */
+        .product-details h5 {
+            font-size: 1rem; /* Adjust the font size of the product name */
+        }
+        .product-details .rental-period,
+        .product-details .description {
+            font-size: 0.85rem; /* Adjust the font size of the rental period and description */
+        }
+    </style>
+</head>
+<body>
+    <!-- Section -->
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                {% for item in items %}
+                <div class="col">
+                    <div class="card">
+                        <!-- Product image -->
+                        {% if item.image %}
+                            <img class="card-img-top" src="{{ item.image.url }}" alt="Product Image" />
+                        {% else %}
+                            <!-- Handle the case where no image is available -->
+                            <div class="card-img-top text-center">No image available</div>
+                        {% endif %}
+                        <!-- Product details -->
+                        <div class="card-body">
+                            <div class="text-center product-details">
+                                <h5 class="fw-bolder">{{ item.name }}</h5>
+                                <p class="mb-0 rental-period">Rental Period: {{ item.period }}</p>
+                                <!-- Add item description if available -->
+                                <p class="description">{{ item.description }}</p>
                             </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'item' item.id %}">View Info</a></div>
+                        </div>
+                        <!-- Product actions -->
+                        <div class="card-footer border-top-0 bg-transparent">
+                            <div class="text-center">
+                                <a class="btn btn-outline-dark" href="{% url 'item' item.id %}">View Info</a>
                             </div>
                         </div>
                     </div>
-                    {% endfor %}
                 </div>
-            </div>         
-        </section>
-        <!-- Footer-->
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="{% static 'js/indexScripts.js'%}"></script>
-    </body>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <!-- Bootstrap core JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS -->
+    <script src="{% static 'js/indexScripts.js'%}"></script>
+</body>
 </html>

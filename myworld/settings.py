@@ -3,18 +3,15 @@ from pathlib import Path
 from easy_thumbnails.conf import Settings as thumbnail_settings
 
 # Set the secret key
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-a5w#s8w02_887j5(#_0bym8d+&s18ctd&o@-%(kl*kp)b329*d')
+SECRET_KEY = os.environ.get('SECRET_KEY', 'your_secret_key_here')
 
 # Define BASE_DIR
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Debug mode
-DEBUG = True 
-
-
-
+DEBUG = True
 # Allowed hosts
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['172.20.10.6', '109.170.229.249','127.0.0.1']
 
 # Custom user model
 AUTH_USER_MODEL = 'account.User'
@@ -31,9 +28,10 @@ INSTALLED_APPS = [
     'Cart.apps.CartConfig',
     'oauth2_provider',
     'easy_thumbnails',
-    'image_cropping',
+    'image_cropping',  # Add 'image_cropping' to your installed apps
 ]
-from easy_thumbnails.conf import Settings as thumbnail_settings
+
+# Add thumbnail processors to THUMBNAIL_PROCESSORS
 THUMBNAIL_PROCESSORS = (
     'image_cropping.thumbnail_processors.crop_corners',
 ) + thumbnail_settings.THUMBNAIL_PROCESSORS
@@ -74,7 +72,6 @@ TEMPLATES = [
         },
     },
 ]
-EMAIL_CONFIRMATION_REQUIRED = True
 
 # WSGI application
 WSGI_APPLICATION = 'myworld.wsgi.application'
@@ -111,13 +108,11 @@ USE_L10N = True
 USE_TZ = True
 
 # Static files configuration
-# Static files configuration
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "staticfiles",
 ]
 STATIC_ROOT = str(BASE_DIR / 'productionfiles')
-
 
 # Custom authentication backends
 AUTHENTICATION_BACKENDS = [
@@ -134,12 +129,17 @@ OAUTH2_PROVIDER = {
     }
 }
 
-
 # Media root directory where uploaded files will be stored
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # Media URL to serve uploaded files
 MEDIA_URL = '/media/'
+
+
+
+# IMAGE CROPPING Configuration
+IMAGE_CROPPING_BACKEND = 'image_cropping.backends.easy_thumbs.EasyThumbnailsBackend'
+IMAGE_CROPPING_BACKEND_PARAMS = {}
 
 # Email Configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

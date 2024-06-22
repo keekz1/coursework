@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Your Title Here</title>
+<title>Your List</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <style>
     body {
@@ -114,27 +114,8 @@
     <input type="text" id="search-input" placeholder="Search items">
 </div>
 
+
 <main class="container">
-    <div class="left-column">
-        <h2>List of equipment</h2>
-        <ul id="saved-items">
-            {% for item in ls.item_set.all %}
-            <li class="item-container">
-                {% if item.saved_image %}
-                    <img src="{{ item.saved_image.url }}" alt="{{ item.text }}">
-                {% endif %}
-                <span>{{ item.text }}</span>
-                <form method="post" action="">
-                    {% csrf_token %}
-                    <button type="submit" name="delete_item" value="{{ item.id }}" class="delete-button">Delete</button>
-                </form>
-            </li>
-            {% empty %}
-            <li>No saved items</li>
-            {% endfor %}
-        </ul>
-    </div>
-    
     <div class="right-column">
         <h2>My List</h2>
         <ul id="unsaved-items">
@@ -150,6 +131,26 @@
             {% endfor %}
         </ul>
         
+
+        <div class="left-column">
+            <h2>List of equipment</h2>
+            <ul id="saved-items">
+                {% for item in items %}
+                <li class="item-container">
+                    {% if item.saved_image %}
+                    <img src="{{ item.image.url }}" alt="{{ item.name }}">
+                    {% endif %}
+                    <span>{{ item.text }}</span>
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        <button type="submit" name="delete_item" value="{{ item.id }}" class="delete-button">Delete</button>
+                    </form>
+                </li>
+                {% empty %}
+                <li>No items</li>
+                {% endfor %}
+            </ul>
+        </div>
         <form method="post" action="" enctype="multipart/form-data" class="add-item-form">
             {% csrf_token %}
             <input type="text" name="new_item_text" placeholder="Add new item">

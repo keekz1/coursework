@@ -11,7 +11,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordChangeView
-from .forms import  UpdateUserForm, UpdateProfileForm, AddMultipleImagesForm
+from .forms import  UpdateUserForm, UpdateProfileForm
 from django.contrib import messages
 
 
@@ -34,24 +34,6 @@ def index(request, id):
 
 
 
-def handle_temporary_image_upload(image, description, folder):
-    img = PILImage.open(image)
-    if img.mode != 'RGB':
-        img = img.convert('RGB')
-
-    img_io = BytesIO()
-    img.save(img_io, format='JPEG')
-
-    file_name = description.replace(" ", "_").lower()
-
-    temp_upload_path = os.path.join(settings.MEDIA_ROOT, folder)
-    os.makedirs(temp_upload_path, exist_ok=True)
-
-    temp_image_path = os.path.join(temp_upload_path, f'{file_name}.jpg')
-    with open(temp_image_path, 'wb') as file:
-        file.write(img_io.getvalue())
-
-    return os.path.relpath(temp_image_path, settings.MEDIA_ROOT)
 
 
 @login_required
@@ -61,35 +43,40 @@ def list_view(request, id):
     except ToDoList.DoesNotExist:
         return HttpResponse("ToDoList does not exist.")
 
+    # Get all unsaved items
     unsaved_items = UnsavedItem.objects.all()
-    form = AddItemForm(request.POST or None, request.FILES or None)  # Pass POST and FILES data to the form
 
     if request.method == 'POST':
+        form = AddItemForm(request.POST, request.FILES)  # Remove `or None` here
         if 'add_item' in request.POST:
             if form.is_valid():
-                # Create a new unsaved item
                 unsaved_item = form.save(commit=False)
                 unsaved_item.save()
-                return redirect('list_view', id=id)  # Redirect after successful item addition
+                return redirect('list_view', id=id)  
         elif 'save' in request.POST:
-            # Handle saving unsaved items
             for unsaved_item in unsaved_items:
+                # Create a new saved item for each unsaved item
                 saved_item = Item.objects.create(
-                    lists=ls,
+                    list=ls,
                     name=unsaved_item.name,
                     type=unsaved_item.type,
                     description=unsaved_item.description,
-                    rental_period=unsaved_item.rental_period,  # Include rental_period field
-
+                    period=unsaved_item.rental_period,
                     image=unsaved_item.image
                 )
+                # Save the newly created item
                 saved_item.save()
+            # Clear all unsaved items after saving
             unsaved_items.delete()
             return redirect('list_view', id=id)
         elif 'delete_item' in request.POST:
             item_id = request.POST.get('delete_item')
+            # Delete the selected item
             ls.items.filter(id=item_id).delete()
             return redirect('list_view', id=id)
+    else:
+        # If the request method is not POST, initialize the form
+        form = AddItemForm()
 
     saved_items = ls.items.all()
 
@@ -136,21 +123,29 @@ def update_user(request):
 
 @login_required
 def profile(request):
+    try:
+        profile = request.user.profile  # Try to get the user's profile
+    except Profile.DoesNotExist:  # If the profile does not exist
+        profile = None  # Set profile to None
+
     if request.method == 'POST':
         user_form = UpdateUserForm(request.POST, instance=request.user)
-        profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        # Use profile if it exists, otherwise None
+        profile_form = UpdateProfileForm(request.POST, request.FILES, instance=profile)
 
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
-            profile_form.save()
+            # Save profile only if it exists
+            if profile:
+                profile_form.save()
             messages.success(request, 'Your profile is updated successfully')
             return redirect(to='profile')
     else:
         user_form = UpdateUserForm(instance=request.user)
-        profile_form = UpdateProfileForm(instance=request.user.profile)
+        # Use profile if it exists, otherwise None
+        profile_form = UpdateProfileForm(instance=profile)
 
     return render(request, 'update_user.html', {'user_form': user_form, 'profile_form': profile_form})
-
 
 class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
     template_name = 'change_password.html'

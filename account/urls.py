@@ -24,6 +24,7 @@ urlpatterns = [
     # Admin
     path('admin/', views.admin_page, name='admin_page'),
     path('pending-approval/', views.pending_approval_view, name='pending_approval_view'),
+    path('accounts/login/', views.login_view, name='login'),
 
     # Others
     path('registration-success/', views.registration_success, name='registration_success'),

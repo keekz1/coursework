@@ -117,6 +117,16 @@
                 {% endif %}
             </span>
         </div>
+
+        <!-- Display Django messages -->
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
         <form method="post" action="{% url 'login' %}">
             {% csrf_token %}
             <div class="form-group">
@@ -141,7 +151,6 @@
                 <input type="submit" value="Log In" class="btn-primary">
             </div>
         </form>
-        
     </div>
 </div>
 

@@ -1,7 +1,6 @@
 from django import forms
 from .models import Item, SavedItem, UnsavedItem,Profile, Image
 
-from multiupload.fields import MultiFileField
 from account.models import User
 from django_resized import ResizedImageField
 
@@ -25,29 +24,23 @@ class AddItemForm(forms.ModelForm):
 
 
 
-class AddItemForm(forms.ModelForm):
-    image = forms.ImageField(label="Image", required=True)
 
-    class Meta:
-        model = Item
-        fields = ['description', 'image']
 
 class SaveForm(forms.Form):
     pass
 
 class SavedItemForm(forms.ModelForm):
-    images = MultiFileField(min_num=1, max_num=10, max_file_size=1024*1024*5)
+    image = forms.ImageField(label="Image")
 
     class Meta:
         model = SavedItem
-        fields = ['description', 'images']
+        fields = ['name', 'type', 'description', 'rental_period', 'image']  # Include rental period field
 
 
 
 
 
-class AddMultipleImagesForm(forms.Form):
-    images = MultiFileField(max_num=10, max_file_size=1024*1024*5)
+
 
 
 
@@ -70,15 +63,6 @@ class UpdateProfileForm(forms.ModelForm):
         fields = ['image']
 
 
-class bookItemForm(forms.ModelForm):
-    item_id = forms.CharField(max_length=100,
-                               required=True,
-                               widget=forms.TextInput(attrs={'class': 'form-control'}))
-    email = forms.EmailField(required=True,
-                             widget=forms.TextInput(attrs={'class': 'form-control'}))    
-    class Meta:
-        model = Profile
-        fields = ['image']
 
 
 class UpdateUserForm(forms.ModelForm):
@@ -100,12 +84,3 @@ class UpdateProfileForm(forms.ModelForm):
         fields = ['image']
 
 
-class bookItemForm(forms.ModelForm):
-    item_id = forms.CharField(max_length=100,
-                               required=True,
-                               widget=forms.TextInput(attrs={'class': 'form-control'}))
-    email = forms.EmailField(required=True,
-                             widget=forms.TextInput(attrs={'class': 'form-control'}))    
-    class Meta:
-        model = Profile
-        fields = ['image']

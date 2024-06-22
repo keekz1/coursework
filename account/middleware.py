@@ -14,7 +14,7 @@ class ApprovalMiddleware:
         # Check if user is authenticated and if they are not approved
         if request.user.is_authenticated:
             if not getattr(request.user, 'is_approved', False):
-                restricted_urls = ['/admin/', '/employee/']  # Add URLs to restrict
+                restricted_urls = [ '/employee/']  # Add URLs to restrict
                 if request.path in restricted_urls:
                     return HttpResponseForbidden("Your account is not approved yet.")
         

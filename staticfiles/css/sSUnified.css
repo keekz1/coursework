@@ -1,96 +1,91 @@
-body{
+body {
   background-color: #EDF6FD;
   font-family: sans-serif;
-  margin: 0vw;
+  margin: 0;
+  font-size: 16px; /* Default font size for better readability */
 }
-body text{
+
+body text {
   color: #0E1C25;
-  
 }
-body ul{
+
+body ul {
   list-style-type: circle;
   color: #C5C3C0;
-  font-size: 2vw;
+  font-size: 1.6vw; /* Adjusted font size relative to viewport width */
   padding-left: 2vw;
-  padding-right: 0vw;
+  padding-right: 0;
 }
 
-#ulSub{
-  font-size: 1vw;
-  padding-right: 0vw;
+#ulSub {
+  font-size: 0.8vw; /* Adjusted font size for sub-level lists */
   padding-left: 1.5vw;
+  padding-right: 0;
 }
-body nav{
+
+body nav {
   list-style-type: circle;
   color: #C5C3C0;
-  font-size: 2vw;
-  padding-left: 0vw;
-  padding-right: 0vw;
-  max-height                :20vh;
+  font-size: 1.6vw;
+  padding-left: 0;
+  padding-right: 0;
+  max-height: 20vh;
 }
 
-.navSub{
-  font-size : 1vw;
-  padding-right : 0vw;
-  padding-left  : 1.5vw;
+.navSub {
+  font-size: 0.8vw;
+  padding-left: 1.5vw;
+  padding-right: 0;
 }
 
-/* body form p{
-  color       : #0E1C25;
-  font-family : sans-serif;
-} */
-
-body input{
-  font-family               : sans-serif;
-  position                  : absolute;
-  font-size                 : larger;
-  padding-left              : 20px;
-  top                       : 3vh;
-  border                    : .5;
-  border-bottom-left-radius : 50px;
-  border-top-left-radius    : 50px;;
-  width                     : 30vw;
-  height                    : 5.5vh;
-  height                    : none;
-  background-color          : #FFFFFF;
-  color                     : #C5C3C0;
+body input {
+  font-family: sans-serif;
+  position: absolute;
+  font-size: 1.6vw; /* Adjusted font size relative to viewport width */
+  padding-left: 20px;
+  top: 3vh;
+  border: 0.5px solid; /* Specify the border properly */
+  border-bottom-left-radius: 50px;
+  border-top-left-radius: 50px;
+  width: 30vw;
+  height: 5.5vh;
+  background-color: #FFFFFF;
+  color: #C5C3C0;
 }
 
-.butt2{
-  position                  : absolute;
-  font-size                 : larger;
-  left                      : 30vw;
-  top                       : 3vh;
-  width                     : 7vw;
-  border                    : .5;
-  border-left               : 0;
+.butt2 {
+  position: absolute;
+  font-size: 1.6vw; /* Adjusted font size relative to viewport width */
+  left: 30vw;
+  top: 3vh;
+  width: 7vw;
+  border: 0.5px solid; /* Specify the border properly */
+  border-left: 0;
   border-bottom-right-radius: 50px;
-  border-top-right-radius   : 50px;
-  height                    : 5.5vh;
-  background-color          : #F4DD02;
-  color                     : #0E1C25;
-
+  border-top-right-radius: 50px;
+  height: 5.5vh;
+  background-color: #F4DD02;
+  color: #0E1C25;
 }
 
-.butt3{
-  position                  : absolute;
-  font-size                 : larger;
-  bottom                    : 15px;
-  width                     : 7vw;
-  border                    : .5;
-  border-radius             : 50px;
-  height                    : 5.5vh;
-  background-color          : #F4DD02;
-  color                     : #0E1C25;
-
+.butt3 {
+  position: absolute;
+  font-size: 1.6vw; /* Adjusted font size relative to viewport width */
+  bottom: 15px;
+  width: 7vw;
+  border: 0.5px solid; /* Specify the border properly */
+  border-radius: 50px;
+  height: 5.5vh;
+  background-color: #F4DD02;
+  color: #0E1C25;
 }
 
-body select{
+body select {
   border: 0;
   width: 20vw;
-  font-size: 1.5vw;
+  font-size: 1.2vw; /* Adjusted font size relative to viewport width */
   background-color: #316282;
-  border-radius   : 5px;
+  border-radius: 5px;
   color: #C5C3C0;
 }
 
