@@ -1,13 +1,73 @@
 {% extends "base.html" %} {% load static %} {% block MenuPullout %}
 
-<div><a href="{% url 'profile' %}" class="navbar-button">Profile</a></div>
-<div><a href="{% url 'cart-summary' %}">Cart</a></div>
+<style>
+  /* General styles */
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+
+  .stacisFrame {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+  }
+
+  .logoFrame a img {
+    width: 100px; /* Default width for larger screens */
+    height: auto;
+    max-width: 100%; /* Ensure the image is responsive */
+  }
+
+  .ProfileFrame a img {
+    width: 50px; /* Default width for larger screens */
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    max-width: 100%; /* Ensure the image is responsive */
+  }
+
+  /* Media query for smaller screens */
+  @media (max-width: 600px) {
+    .logoFrame a img {
+      width: 80px; /* Adjust as needed for smaller screens */
+    }
+
+    .ProfileFrame a img {
+      width: 40px; /* Adjust as needed for smaller screens */
+      height: 40px; /* Ensure the aspect ratio is maintained */
+    }
+  }
+
+  .backgroundImage {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+
+  .backgroundImage img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+</style>
+
 <div>
-  <span onclick="toggleSearchWindow()"
-    ><a class="navbar-button" target="iframe_a">Search</a></span
-  >
+  <a href="{% url 'profile' %}" class="navbar-button">Profile</a>
 </div>
-<div><a href="" class="navbar-button">Settings</a></div>
+<div>
+  <a href="{% url 'cart-summary' %}">Cart</a>
+</div>
+<div>
+  <span onclick="toggleSearchWindow()">
+    <a class="navbar-button" target="iframe_a">Search</a>
+  </span>
+</div>
+<div>
+  <a href="" class="navbar-button">Settings</a>
+</div>
 
 {% if user.is_authenticated %}
 <!-- User is logged in, show logout link -->
@@ -17,17 +77,17 @@
 <div><a href="{% url 'register' %}" class="navbar-button">Register</a></div>
 <div><a href="{% url 'login' %}" class="navbar-button">Login</a></div>
 {% endif %} {% endblock MenuPullout %} {% block ImageBackground %}
-
 <div class="backgroundImage">
-  <img src="{% static 'img/background.PNG' %}" id="background" />
+  <img
+    src="{% static 'img/background.PNG' %}"
+    id="background"
+    alt="Background Image"
+  />
 </div>
-
 {% endblock ImageBackground %} {% block content %}
-
 <div id="main">
   <!--Com2).↓The Link Gallery↓-->
   <div class="ItemFrame">{% include 'index.html' %}</div>
   <!--↑ end of Com2). ↑-->
 </div>
-
 {% endblock content %}

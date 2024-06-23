@@ -7,15 +7,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rent & HIRE</title>
     <style>
-      .logo {
-        width: fixed; /* Adjust the width as per your design */
-        height: auto; /* Ensures aspect ratio is maintained */
+            .logo {
+              width: flex; /* Adjust the width as per your design */
+              height: auto; /* Ensures aspect ratio is maintained */
+            }
+            .avatar {
+              width: flex; /* Adjust the width as per your design */
+              height: flex/* Adjust the height as per your design */
+              border-radius: 50%; /* Ensures it's round */
+              object-fit: cover; /* Ensures image fits into the container */
+            }
+            /* Add this CSS */
+      .stacisFrame {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
       }
-      .avatar {
-        width: fixed; /* Adjust the width as per your design */
-        height: fixed; /* Adjust the height as per your design */
-        border-radius: 50%; /* Ensures it's round */
-        object-fit: cover; /* Ensures image fits into the container */
+
+      .logoFrame a img {
+        width: 100px; /* Default width for larger screens */
+        height: auto;
+      }
+
+      .ProfileFrame a img {
+        width: 50px; /* Default width for larger screens */
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      /* Media query for smaller screens */
+      @media (max-width: 600px) {
+        .logoFrame a img {
+            width: 80px; /* Adjust as needed for smaller screens */
+        }
+
+        .ProfileFrame a img {
+            width: 40px; /* Adjust as needed for smaller screens */
+            height: 40px;
+        }
       }
     </style>
 
