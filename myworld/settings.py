@@ -14,7 +14,7 @@ environ.Env.read_env()
 
 
 # Debug mode
-DEBUG = False
+DEBUG = True
 # Allowed hosts
 ALLOWED_HOSTS = ['https://coursework-yy69.onrender.com','*']
 
