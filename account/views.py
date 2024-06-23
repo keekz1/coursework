@@ -61,17 +61,13 @@ def register(request):
             user.is_active = True  # Deactivate the user until they confirm their email
             user.is_staff = True
             user.save()
-        if user.is_admin:
-            user.is_approved=True
-            user.email_confirmed = True
-            user.is_staff = True
-            user.is_superuser = True 
-            user.save()
-        if user.is_customer or user.employee:
-            user.is_approved=False
-            user.email_confirmed = False
-            user.is_staff = False
-            user.save()
+            if user.is_admin:
+               user.is_approved=True
+               user.email_confirmed = True
+               user.is_staff = True
+               user.is_superuser = True 
+               user.save()
+       
             
         
             
