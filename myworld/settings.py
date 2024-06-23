@@ -16,7 +16,7 @@ environ.Env.read_env()
 # Debug mode
 DEBUG = True
 # Allowed hosts
-ALLOWED_HOSTS = ['https://coursework-yy69.onrender.com','127.0.0.1']
+ALLOWED_HOSTS = ['coursework-yy69.onrender.com','127.0.0.1']
 
 # Custom user model
 AUTH_USER_MODEL = 'account.User'
