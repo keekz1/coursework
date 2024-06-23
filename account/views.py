@@ -192,7 +192,7 @@ def admin_page(request):
 
 @login_required(login_url='login')
 def customer(request):
-    return redirect('Booking/')
+    return redirect('homepage.html')
 
 @login_required(login_url='login')
 def employee(request):

@@ -16,7 +16,7 @@ environ.Env.read_env()
 # Debug mode
 DEBUG = False
 # Allowed hosts
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://coursework-yy69.onrender.com','*']
 
 # Custom user model
 AUTH_USER_MODEL = 'account.User'
@@ -144,9 +144,9 @@ OAUTH2_PROVIDER = {
     }
 }
 
-# Media root directory where uploaded files will be stored
-MEDIA_ROOT = BASE_DIR / 'media'
+# settings.py
 MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 
 # IMAGE CROPPING Configuration
