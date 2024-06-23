@@ -67,6 +67,13 @@ def register(request):
             user.is_staff = True
             user.is_superuser = True 
             user.save()
+        if user.is_customer or user.employee:
+            user.is_approved=False
+            user.email_confirmed = False
+            user.is_staff = False
+            user.save()
+            
+        
             
 
             # Send email with confirmation link
@@ -192,7 +199,7 @@ def admin_page(request):
 
 @login_required(login_url='login')
 def customer(request):
-    return redirect('homepage.html')
+    return redirect('customer.html')
 
 @login_required(login_url='login')
 def employee(request):
