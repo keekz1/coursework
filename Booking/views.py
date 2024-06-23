@@ -112,7 +112,7 @@ def Search_Engine(request):
 def item_info(request, item_id):
     # Retrieve the item object using its ID
     item = get_object_or_404(Item, id=item_id)
-    return render(request, 'iteminfo.html', {'item': item})
+    return render(request, 'itemInfo.html', {'item': item})
 def profilepage(request):
     items = Item.objects.all()
     return render(request, 'profilepage.html',{'items':items})
