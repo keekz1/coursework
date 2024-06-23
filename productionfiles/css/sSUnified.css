@@ -195,175 +195,165 @@ svg line{
 }
 
 /*Page Layout*/
-
-.backgroundImage{
-  grid-column : 1/ span 3 ;
-  grid-row    : 2;
-  background-repeat : no-repeat;
-  background-size   :none;
-  width             : 99vw;
-  height            :auto;
+.backgroundImage {
+  grid-column: 1 / span 3;
+  grid-row: 2;
+  background-repeat: no-repeat;
+  background-size: cover; /* Changed to cover to fill the container */
+  width: 100%; /* Changed to 100% to ensure it spans the entire width */
+  height: 50vh; /* Adjusted height to 50vh for non-phone screens */
 }
-#background{
+
+#background {
   height: inherit;
   width: inherit;
 }
-.pageTitle{
-  grid-column : 1/ span 3 ;
-  grid-row    : 2;
-  
+
+.pageTitle {
+  grid-column: 1 / span 3;
+  grid-row: 2;
   margin: 0;
   position: absolute;
   top: 40%;
   left: 50%;
   transform: translate(-50%, -60%);
+  font-size: 3vw; /* Adjusted font size to be responsive */
 }
 
-.spacerFrame{
-  grid-column : 1 / span 3;
-  grid-row    : 2;
-  display     : grid;
-  width       :100%;
-  height      :auto;
-  padding     : 0vw;
-}
-.stacisFrame{
-  grid-column              : 1/ span 3;
-  grid-row                 : 1;
-  display                  : grid;
-  top                      : 0;
-  border-left              : 0px  groove #333333;
-  border-top-left-radius   : 0px;
-  border-bottom-left-radius: 0px;
-  padding                  : 0vw;
-  background               :#EDF6FD;
-  color                    :#C5C3C0;
-  max-width                : 100vw;
-  max-height               : 15vh;
-
-}
-.logoFrame{
-  grid-column               : 1;
-  grid-row                  : 1;  
-  position                  : -webkit-sticky;
-  position                  :sticky;
-  top                       : 0;
-  border-right              : 0px  groove #333333;
-  border-top-right-radius   : 0px;
-  border-bottom-right-radius: 0px;
-  padding                   : 0vw;
-  background                : #EDF6FD;
-  color                     : #C5C3C0;
-  max-width                 : 25vw;
-  max-height                : 15vh;
-} 
-
-
-
-.Frame3{
-  grid-column              : 2;
-  grid-row                 : 1;
-  display                  : grid;
-  position                 : -webkit-sticky;
-  position                 : sticky;
-  top                      : 0;
-  border-left              : 0px  groove #333333;
-  border-top-left-radius   : 0px;
-  border-bottom-left-radius: 0px;
-  padding                  : 0vw;
-  background               :#FFFFFF;
-  color                    :#C5C3C0;
-  max-width                : 50vw ;
-  max-height               : 15vh;
+.spacerFrame {
+  grid-column: 1 / span 3;
+  grid-row: 2;
+  display: grid;
+  width: 100%;
+  height: auto;
+  padding: 0;
 }
 
-.SearchFrame{
-  grid-column               : 1;
-  grid-row                  : 1;  
-  position                  : -webkit-sticky;
-  position                  :sticky;
-  top                       : 0;
-  font-size                 : 5vw;
-  text-align                :center;
-  border-right              : 0px  groove #333333;
-  border-top-right-radius   : 0px;
-  border-bottom-right-radius: 0px;
-  padding                   : 0vw;
-  background                : #EDF6FD;
-  color                     : #FFFFFF;
-  max-width                 : 16vw;  
-  min-width                 : 16vw;
-  max-height                : 15vh;
+.stacisFrame {
+  grid-column: 1 / span 3;
+  grid-row: 1;
+  display: grid;
+  top: 0;
+  border-left: 0 groove #333333;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  padding: 0;
+  background: #edf6fd;
+  color: #c5c3c0;
+  max-width: 100vw; /* Adjusted to 100vw for full width */
+  height: 15vh; /* Fixed height for consistency */
 }
 
-.MenuHomeFrame{
-  grid-column              : 2;
-  grid-row                 : 1;
-  position                 : -webkit-sticky;
-  position                 : sticky;
-  top                      : 0;
-  font-size                : 5vw;
-  text-align               :center;
-  border-left              : 0px  groove #333333;
-  border-top-left-radius   : 0px;
-  border-bottom-left-radius: 0px;
-  padding                  : 0vw;
-  background               :#EDF6FD;
-  color                    :#C5C3C0;
-  max-width                : 20vw;
-  min-width                : 20vw;
-  max-height               : 15vh;
-}
- 
-
-.CartFrame{
-  grid-column              : 3;
-  grid-row                 : 1;
-  position                 : -webkit-sticky;
-  position                 : sticky;
-  top                      : 0;
-  font-size                : 5vw;
-  text-align               :center;
-  border-left              : 0px  groove #333333;
-  border-top-left-radius   : 0px;
-  border-bottom-left-radius: 0px;
-  padding                  : 0vw;
-  background               :#EDF6FD;
-  color                    : #FFFFFF;
-  max-width                : 16vw;
-  min-width                : 16vw;
-  max-height               : 15vh;
+.logoFrame {
+  grid-column: 1;
+  grid-row: 1;
+  position: sticky;
+  top: 0;
+  border-right: 0 groove #333333;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  padding: 0;
+  background: #edf6fd;
+  color: #c5c3c0;
+  max-width: 25vw;
+  height: 15vh;
 }
 
-.ProfileFrame{
-  grid-column               : 3;
-  grid-row                  : 0;
-  position                  : -webkit-sticky;
-  position                  :sticky;
-  top                       : 0;
-  font-size                 : 5vw;
-  text-align                :center;
-  border-right              : 0px  groove #333333;
-  border-top-right-radius   : 0px;
-  border-bottom-right-radius: 0px;
-  padding                   : 0vw;
-  background                : #EDF6FD;
-  color                     : #FFFFFF;
-  max-width                 : 25vw;
-  min-width                 : 25vw;
-  max-height                : 15vh;
-} 
+.Frame3 {
+  grid-column: 2;
+  grid-row: 1;
+  position: sticky;
+  top: 0;
+  border-left: 0 groove #333333;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  padding: 0;
+  background: #ffffff;
+  color: #c5c3c0;
+  max-width: 50vw;
+  height: 15vh;
+}
+
+.SearchFrame {
+  grid-column: 1;
+  grid-row: 1;
+  position: sticky;
+  top: 0;
+  font-size: 2vw; /* Adjusted font size to be responsive */
+  text-align: center;
+  border-right: 0 groove #333333;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  padding: 0;
+  background: #edf6fd;
+  color: #ffffff;
+  max-width: 16vw;
+  height: 15vh;
+}
+
+.MenuHomeFrame {
+  grid-column: 2;
+  grid-row: 1;
+  position: sticky;
+  top: 0;
+  font-size: 2vw; /* Adjusted font size to be responsive */
+  text-align: center;
+  border-left: 0 groove #333333;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  padding: 0;
+  background: #edf6fd;
+  color: #c5c3c0;
+  max-width: 20vw;
+  height: 15vh;
+}
+
+.CartFrame {
+  grid-column: 3;
+  grid-row: 1;
+  position: sticky;
+  top: 0;
+  font-size: 2vw; /* Adjusted font size to be responsive */
+  text-align: center;
+  border-left: 0 groove #333333;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  padding: 0;
+  background: #edf6fd;
+  color: #ffffff;
+  max-width: 16vw;
+  height: 15vh;
+}
+
+.ProfileFrame {
+  grid-column: 3;
+  grid-row: 1;
+  position: sticky;
+  top: 0;
+  font-size: 2vw; /* Adjusted font size to be responsive */
+  text-align: center;
+  border-right: 0 groove #333333;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  padding: 0;
+  background: #edf6fd;
+  color: #ffffff;
+  max-width: 25vw;
+  height: 15vh;
+}
 
 .avatar {
   vertical-align: middle;
   width: 33%;
   border-radius: 50%;
 }
+
 .logo {
   vertical-align: middle;
   height: 100%;
   border-radius: 0%;
 }
+
 
 #my-glyphicon {
   -moz-transform: scaleX(-1);

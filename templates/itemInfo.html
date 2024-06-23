@@ -1,83 +1,74 @@
-{% extends "base.html" %}
-{% load static %}
-{% block MenuPullout %}
-
-    <div><a href="{% url 'home' %}" class="navbar-button">home</a></div>
-    <div><a href="{% url 'profile' %}" class="navbar-button">Profile</a></span></div>
-    <div><a href="{% url 'cart-summary' %}">Cart</a></div>
-    <div><a class="navbar-button" target="iframe_a">Search</a></div>
-    <div><a href="" class="navbar-button">Settings</a></span></div>
-    <div><a href=" {% url 'logout' %}" class="navbar-button">Logout</a></div>
-
-{% endblock MenuPullout %}
-
-{% block ImageBackground %}
-
-<div class="backgroundImage"  >
-    <img src={% static 'img/background.PNG' %} id="background" >
+{% extends "base.html" %} {% load static %} {% block MenuPullout %}
+<div><a href="{% url 'home' %}" class="navbar-button">Home</a></div>
+<div><a href="{% url 'profile' %}" class="navbar-button">Profile</a></div>
+<div><a href="{% url 'cart-summary' %}" class="navbar-button">Cart</a></div>
+<div><a href="#" class="navbar-button" target="iframe_a">Search</a></div>
+<div><a href="#" class="navbar-button">Settings</a></div>
+<div><a href="{% url 'logout' %}" class="navbar-button">Logout</a></div>
+{% endblock MenuPullout %} {% block ImageBackground %}
+<div class="backgroundImage">
+  <img src="{% static 'img/background.PNG' %}" id="background" />
 </div>
-
-{% endblock ImageBackground %}
-
-{% block content %}
-
+{% endblock ImageBackground %} {% block content %}
 <div class="container">
-    <br/>
-    <div class="card mb-3">
-        <div class="row g-0"> 
-            <div class="col-md-4">
-                <img src="{{ item.image.url }}" class="img-fluid rounded-start" alt="..." />
-            </div>
-            <div class="col-md-8" style="max-width: 25vw;" >
-                <div class="card-body">
-                    <h3 class="card-title">{{item.name}}</h3>                    
-                    {{item.description|linebreaksbr}}
-                </div>
-            </div>
-            <div class="col-md-9" style="max-width: 25vw;" >
-                <div class="card-body">
-                    <br><br>
-                    <h3 class="card-title">Product Type : {{item.type}}</h3>
-                    <br>
-                    <h3 class="card-title">Rental Period: {{item.period}}</h3>
-                    <button  class="butt3" value="{{item.id}}" id ="add_cart"> Add Item </button>
-                
-
-                </div>
-            </div>
+  <br />
+  <div class="card mb-3">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img
+          src="{{ item.image.url }}"
+          class="img-fluid rounded-start"
+          alt="Item Image"
+        />
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h3 class="card-title">{{ item.name }}</h3>
+          <p class="card-text">{{ item.description|linebreaksbr }}</p>
         </div>
+      </div>
+      <div class="col-md-12">
+        <div class="card-body">
+          <h4>Product Type: {{ item.type }}</h4>
+          <h4>Rental Period: {{ item.period }}</h4>
+          <button
+            class="btn btn-primary btn-sm"
+            id="add_cart"
+            data-item-id="{{ item.id }}"
+          >
+            Add to Cart
+          </button>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <script>
-    //chech if button pressed
-    $(document).on('click', '#add_cart', function(e){
-        e.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: "{% url 'cart-add' %}",
-            data: {
-                item_id: $('#add_cart').val(),
-                csrfmiddlewaretoken:'{{ csrf_token }}',
-                action: 'post'
-            },
-            success: function(json){
-                //console.log(json)
-                document.getElementById("cart_quantity")
-                    textContent = json.qty
-                    location.reload();
-
-            },
-
-            error: function(xhr, errmsg, err){
-
-            }
-
-        });
-    })
-
+  $(document).ready(function () {
+    // Listen for click on add_cart button
+    $(document).on("click", "#add_cart", function (e) {
+      e.preventDefault();
+      var item_id = $(this).data("item-id");
+      $.ajax({
+        type: "POST",
+        url: "{% url 'cart-add' %}",
+        data: {
+          item_id: item_id,
+          csrfmiddlewaretoken: "{{ csrf_token }}",
+          action: "post",
+        },
+        success: function (json) {
+          // Update cart quantity and reload page
+          $("#cart_quantity").text(json.qty);
+          location.reload();
+        },
+        error: function (xhr, errmsg, err) {
+          console.log(xhr.status + ": " + xhr.responseText); // Log error message
+        },
+      });
+    });
+  });
 </script>
-
-
 
 {% endblock content %}

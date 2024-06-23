@@ -6,49 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rent & HIRE</title>
-    <style>
-            .logo {
-              width: flex; /* Adjust the width as per your design */
-              height: auto; /* Ensures aspect ratio is maintained */
-            }
-            .avatar {
-              width: flex; /* Adjust the width as per your design */
-              height: flex/* Adjust the height as per your design */
-              border-radius: 50%; /* Ensures it's round */
-              object-fit: cover; /* Ensures image fits into the container */
-            }
-            /* Add this CSS */
-      .stacisFrame {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 10px;
-      }
-
-      .logoFrame a img {
-        width: 100px; /* Default width for larger screens */
-        height: auto;
-      }
-
-      .ProfileFrame a img {
-        width: 50px; /* Default width for larger screens */
-        height: 50px;
-        border-radius: 50%;
-        object-fit: cover;
-      }
-
-      /* Media query for smaller screens */
-      @media (max-width: 600px) {
-        .logoFrame a img {
-            width: 80px; /* Adjust as needed for smaller screens */
-        }
-
-        .ProfileFrame a img {
-            width: 40px; /* Adjust as needed for smaller screens */
-            height: 40px;
-        }
-      }
-    </style>
 
     <link
       rel="shortcut icon"
@@ -63,6 +20,184 @@
       integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
       crossorigin="anonymous"
     ></script>
+    <style>
+      .stacisFrame {
+        display: grid;
+        grid-template-columns: 25vw 50vw 25vw; /* Adjusted column widths */
+        grid-template-rows: auto; /* Ensures rows adjust to content */
+        align-items: center; /* Center items vertically */
+        background: #edf6fd;
+        color: #c5c3c0;
+        height: 15vh; /* Fixed height for consistency */
+      }
+
+      .logoFrame {
+        grid-column: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%; /* Ensures full height of the parent */
+        padding: 0 1rem; /* Added padding for spacing */
+      }
+
+      .logo {
+        max-height: 80%; /* Adjusted maximum height of the logo */
+        max-width: 100%; /* Ensures the logo does not overflow */
+      }
+
+      .Frame3 {
+        grid-column: 2;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* Adjusted column layout */
+        align-items: center; /* Center items vertically */
+        justify-items: center; /* Center items horizontally */
+        height: 100%; /* Ensures full height of the parent */
+        padding: 0 1rem; /* Added padding for spacing */
+      }
+
+      .SearchFrame,
+      .MenuHomeFrame,
+      .CartFrame,
+      .ProfileFrame {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%; /* Ensures full height of the parent */
+        padding: 0 0.5rem; /* Added padding for spacing */
+      }
+
+      .SearchFrame svg {
+        width: 2.5rem;
+        height: 2.5rem;
+      }
+
+      .MenuHomeFrame span {
+        font-size: 2.5rem;
+        cursor: pointer;
+      }
+
+      .CartFrame .btn {
+        display: flex;
+        align-items: center;
+        font-size: 1.5rem;
+      }
+
+      .CartFrame .badge {
+        font-size: 1rem;
+      }
+
+      .ProfileFrame {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%; /* Ensures full height of the parent */
+        padding: 0 1rem; /* Added padding for spacing */
+      }
+
+      .avatar {
+        vertical-align: middle;
+        width: 3rem; /* Adjusted avatar size */
+        height: 3rem; /* Adjusted avatar size */
+        border-radius: 50%;
+      }
+
+      @media (max-width: 576px) {
+        .logoFrame {
+          padding: 0 0.5rem; /* Adjusted padding for smaller screens */
+        }
+
+        .Frame3 {
+          padding: 0 0.5rem; /* Adjusted padding for smaller screens */
+        }
+
+        .SearchFrame svg,
+        .MenuHomeFrame span,
+        .CartFrame .btn {
+          font-size: 1.5rem; /* Adjusted font sizes for smaller screens */
+        }
+
+        .CartFrame .btn {
+          font-size: 1.25rem; /* Further adjustment for the cart button */
+        }
+
+        .CartFrame .badge {
+          font-size: 0.75rem; /* Adjusted font size for the badge */
+        }
+
+        .ProfileFrame {
+          padding: 0 0.5rem; /* Adjusted padding for smaller screens */
+        }
+
+        .avatar {
+          width: 2rem; /* Adjusted avatar size for smaller screens */
+          height: 2rem; /* Adjusted avatar size for smaller screens */
+        }
+        /* Ensure the CartFrame and its contents are properly styled */
+        .CartFrame {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100%; /* Ensures full height of the parent */
+          padding: 0 0.5rem; /* Added padding for spacing */
+        }
+
+        .CartFrame .btn {
+          display: flex;
+          align-items: center;
+          font-size: 1.5rem;
+          position: relative; /* Ensure position is relative for proper stacking */
+        }
+
+        .CartFrame .badge {
+          font-size: 1rem;
+          position: absolute; /* Position the badge absolutely */
+          top: -0.5rem; /* Adjust the top position to position it correctly */
+          right: -0.5rem; /* Adjust the right position to position it correctly */
+          min-width: 1.5rem; /* Ensure a minimum width for the badge */
+          padding: 0.25rem; /* Add padding for better appearance */
+          border-radius: 50%; /* Make badge circular */
+          background-color: #343a40; /* Background color for the badge */
+          color: white; /* Text color for the badge */
+          text-align: center; /* Center align text inside the badge */
+        }
+
+        @media (max-width: 576px) {
+          .CartFrame {
+            padding: 0 0.5rem; /* Adjusted padding for smaller screens */
+          }
+
+          .CartFrame .btn {
+            font-size: 1.25rem; /* Adjusted font size for smaller screens */
+          }
+
+          .CartFrame .badge {
+            font-size: 0.75rem; /* Further adjustment for the badge */
+            top: -0.3rem; /* Adjusted top position for smaller screens */
+            right: -0.3rem; /* Adjusted right position for smaller screens */
+            min-width: 1.2rem; /* Adjusted minimum width for smaller screens */
+            padding: 0.15rem; /* Adjusted padding for smaller screens */
+          }
+          .linkWindow {
+            position: absolute;
+            top: 11vh; /* Adjusted top position */
+            left: 5vw;
+            width: 90vw;
+            max-height: 19vh;
+            overflow-y: auto;
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: max-height 0.3s ease;
+            padding: 10px; /* Adjust padding inside the dropdown */
+            margin: 0; /* Adjust margin if needed */
+            height: 0px; /* Start with height 0 */
+            visibility: hidden; /* Initially hidden */
+            opacity: 0; /* Initially transparent */
+          }
+        }
+      }
+    </style>
   </head>
   <body>
     <!--Com3). ↓The nav Bar↓-->
@@ -149,6 +284,7 @@
         <button class="butt2" type="submit">Search</button>
       </form>
     </div>
+
     <div id="myItemWindow" class="siteMapWindow">
       <a href="javascript:void(0)" class="closebtn" onclick="closeItemWindow()"
         >&times;</a
@@ -212,10 +348,15 @@
 
       function toggleSearchWindow() {
         var element = document.getElementById("mySearchWindow");
-        if (element.style.height == "8vw") {
-          element.style.height = "0";
+        // Toggle visibility based on current state
+        if (element.style.height == "0px" || element.style.height == "") {
+          element.style.height = "12vh"; // Open the search bar dropdown
+          element.style.visibility = "visible"; // Make visible
+          element.style.opacity = "1"; // Make fully opaque
         } else {
-          element.style.height = "8vw";
+          element.style.height = "0px"; // Close the search bar dropdown
+          element.style.visibility = "hidden"; // Hide the element
+          element.style.opacity = "0"; // Make transparent
         }
       }
     </script>

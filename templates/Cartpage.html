@@ -8,7 +8,86 @@
     <div><a href="/register" class="navbar-button">Settings</a></div>
     <div><a href=" {% url 'logout' %}" class="navbar-button">Logout</a></div>
 
-
+<style>
+    /* Ensure the overall layout and styling consistency */
+.ItemFrame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  
+  .card {
+    width: 100%;
+    margin-bottom: 1rem;
+    border: none; /* Remove default border */
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+  }
+  
+  .card-img-top {
+    width: 100%;
+    object-fit: cover; /* Ensure image covers entire area */
+  }
+  
+  .card-body {
+    padding: 1rem;
+  }
+  
+  .card-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .card-text {
+    font-size: 1rem;
+    color: #6c757d; /* Subdued text color */
+  }
+  
+  .btn-danger {
+    background-color: #dc3545; /* Red background for danger button */
+    border-color: #dc3545; /* Matching border color */
+    color: white; /* White text color */
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    margin-top: 1rem; /* Ensure spacing */
+  }
+  
+  .btn-danger:hover {
+    background-color: #c82333; /* Darker red on hover */
+    border-color: #bd2130; /* Matching border color on hover */
+  }
+  
+  @media (max-width: 992px) {
+    .card {
+      flex-direction: column; /* Adjust for smaller screens */
+    }
+    
+    .col-md-4 {
+      width: 100%;
+    }
+  
+    .col-md-8 {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .card-title {
+      font-size: 1.25rem; /* Adjust title font size for smaller screens */
+    }
+    
+    .card-text {
+      font-size: 0.875rem; /* Adjust text font size for smaller screens */
+    }
+  
+    .btn-danger {
+      font-size: 0.875rem; /* Adjust button font size for smaller screens */
+    }
+  }
+  
+</style>
 {% endblock MenuPullout %}
 
 {% block ImageBackground %}
