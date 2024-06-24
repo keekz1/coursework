@@ -23,36 +23,37 @@
     <style>
       .stacisFrame {
         display: grid;
-        grid-template-columns: 25vw 50vw 25vw; /* Adjusted column widths */
-        grid-template-rows: auto; /* Ensures rows adjust to content */
-        align-items: center; /* Center items vertically */
+        grid-template-columns: 25vw 50vw 25vw;
+        grid-template-rows: auto;
+        align-items: center;
         background: #edf6fd;
         color: #c5c3c0;
-        height: 15vh; /* Fixed height for consistency */
+        height: 15vh;
+        padding: 0 1rem; /* Added padding for spacing */
       }
 
       .logoFrame {
         grid-column: 1;
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
-        height: 100%; /* Ensures full height of the parent */
-        padding: 0 1rem; /* Added padding for spacing */
+        height: 100%;
+        /*padding: 0 1rem;*/
       }
 
       .logo {
-        max-height: 80%; /* Adjusted maximum height of the logo */
-        max-width: 100%; /* Ensures the logo does not overflow */
+        max-height: 80%;
+        max-width: 100%;
       }
 
       .Frame3 {
         grid-column: 2;
         display: grid;
-        grid-template-columns: repeat(3, 1fr); /* Adjusted column layout */
-        align-items: center; /* Center items vertically */
-        justify-items: center; /* Center items horizontally */
-        height: 100%; /* Ensures full height of the parent */
-        padding: 0 1rem; /* Added padding for spacing */
+        grid-template-columns: repeat(3, 1fr);
+        align-items: center;
+        justify-items: center;
+        height: 100%;
+        padding: 0 1rem;
       }
 
       .SearchFrame,
@@ -62,8 +63,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100%; /* Ensures full height of the parent */
-        padding: 0 0.5rem; /* Added padding for spacing */
+        height: 100%;
+        padding: 0 0.5rem;
       }
 
       .SearchFrame svg {
@@ -90,110 +91,141 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100%; /* Ensures full height of the parent */
-        padding: 0 1rem; /* Added padding for spacing */
+        height: 100%;
+        padding: 0 1rem;
       }
 
       .avatar {
         vertical-align: middle;
-        width: 3rem; /* Adjusted avatar size */
-        height: 3rem; /* Adjusted avatar size */
+        width: 3rem;
+        height: 3rem;
         border-radius: 50%;
       }
 
       @media (max-width: 576px) {
         .logoFrame {
-          padding: 0 0.5rem; /* Adjusted padding for smaller screens */
+          padding: 0 0.5rem;
         }
 
         .Frame3 {
-          padding: 0 0.5rem; /* Adjusted padding for smaller screens */
+          padding: 0 0.5rem;
         }
 
         .SearchFrame svg,
         .MenuHomeFrame span,
         .CartFrame .btn {
-          font-size: 1.5rem; /* Adjusted font sizes for smaller screens */
+          font-size: 1.5rem;
         }
 
         .CartFrame .btn {
-          font-size: 1.25rem; /* Further adjustment for the cart button */
+          font-size: 1.25rem;
         }
 
         .CartFrame .badge {
-          font-size: 0.75rem; /* Adjusted font size for the badge */
+          font-size: 0.75rem;
         }
 
         .ProfileFrame {
-          padding: 0 0.5rem; /* Adjusted padding for smaller screens */
+          padding: 0 0.5rem;
         }
 
         .avatar {
-          width: 2rem; /* Adjusted avatar size for smaller screens */
-          height: 2rem; /* Adjusted avatar size for smaller screens */
+          width: 2rem;
+          height: 2rem;
         }
-        /* Ensure the CartFrame and its contents are properly styled */
+
         .CartFrame {
           display: flex;
           justify-content: center;
           align-items: center;
-          height: 100%; /* Ensures full height of the parent */
-          padding: 0 0.5rem; /* Added padding for spacing */
+          height: 100%;
+          padding: 0 0.5rem;
         }
 
         .CartFrame .btn {
           display: flex;
           align-items: center;
           font-size: 1.5rem;
-          position: relative; /* Ensure position is relative for proper stacking */
+          position: relative;
         }
 
         .CartFrame .badge {
           font-size: 1rem;
-          position: absolute; /* Position the badge absolutely */
-          top: -0.5rem; /* Adjust the top position to position it correctly */
-          right: -0.5rem; /* Adjust the right position to position it correctly */
-          min-width: 1.5rem; /* Ensure a minimum width for the badge */
-          padding: 0.25rem; /* Add padding for better appearance */
-          border-radius: 50%; /* Make badge circular */
-          background-color: #343a40; /* Background color for the badge */
-          color: white; /* Text color for the badge */
-          text-align: center; /* Center align text inside the badge */
+          position: absolute;
+          top: -0.5rem;
+          right: -0.5rem;
+          min-width: 1.5rem;
+          padding: 0.25rem;
+          border-radius: 50%;
+          background-color: #343a40;
+          color: white;
+          text-align: center;
+        }
+
+        .linkWindow {
+          position: absolute;
+          top: 11vh;
+          left: 5vw;
+          width: 90vw;
+          max-height: 19vh;
+          overflow-y: auto;
+          background-color: #ffffff;
+          border: 1px solid #ccc;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          z-index: 1000;
+          transition: max-height 0.3s ease;
+          padding: 10px;
+          margin: 0;
+          height: 0px;
+          visibility: hidden;
+          opacity: 0;
+        }
+
+        .navBar {
+          height: 100%;
+          width: 0;
+          position: fixed;
+          z-index: 1000;
+          top: 0;
+          left: 0;
+          background-color: #e91e63; /* Pink color */
+          overflow-x: hidden;
+          transition: 0.5s;
+          padding-top: 60px;
+        }
+
+        .navBar a {
+          padding: 8px 8px 8px 32px;
+          text-decoration: none;
+          font-size: 1.5rem;
+          color: #ffffff; /* White text color */
+          display: block;
+          transition: 0.3s;
+        }
+
+        .navBar a:hover {
+          color: #ffd1dc; /* Lighter pink on hover */
+        }
+
+        .navBar .closebtn {
+          position: absolute;
+          top: 0;
+          right: 25px;
+          font-size: 3rem;
+          margin-left: 50px;
+          color: #ffffff; /* White close button */
         }
 
         @media (max-width: 576px) {
-          .CartFrame {
-            padding: 0 0.5rem; /* Adjusted padding for smaller screens */
+          .navBar a {
+            font-size: 1.2rem;
+            padding: 6px 6px 6px 20px;
           }
 
-          .CartFrame .btn {
-            font-size: 1.25rem; /* Adjusted font size for smaller screens */
-          }
-
-          .CartFrame .badge {
-            font-size: 0.75rem; /* Further adjustment for the badge */
-            top: -0.3rem; /* Adjusted top position for smaller screens */
-            right: -0.3rem; /* Adjusted right position for smaller screens */
-            min-width: 1.2rem; /* Adjusted minimum width for smaller screens */
-            padding: 0.15rem; /* Adjusted padding for smaller screens */
-          }
-          .linkWindow {
-            position: absolute;
-            top: 11vh; /* Adjusted top position */
-            left: 5vw;
-            width: 90vw;
-            max-height: 19vh;
-            overflow-y: auto;
-            background-color: #ffffff;
-            border: 1px solid #ccc;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            transition: max-height 0.3s ease;
-            padding: 10px; /* Adjust padding inside the dropdown */
-            margin: 0; /* Adjust margin if needed */
-            height: 0px; /* Start with height 0 */
-            visibility: hidden; /* Initially hidden */
-            opacity: 0; /* Initially transparent */
+          .navBar .closebtn {
+            font-size: 2.5rem;
+            right: 20px;
+            margin-left: 40px;
           }
         }
       }
@@ -201,9 +233,6 @@
   </head>
   <body>
     <!--Com3). ↓The nav Bar↓-->
-
-    <!-- Com4).↓ this is the call element for the menu↓-->
-
     <div class="stacisFrame">
       <div class="logoFrame">
         <a href="{% url 'home' %}">
@@ -252,9 +281,8 @@
 
       <div class="ProfileFrame">
         <a href="{% url 'profile' %}">
-          {% load cropping %} {% for object in objects %}
-          <!-- Ensure that 'object' is a model instance -->
-          {% cropped_thumbnail object ratiofieldname %}
+          {% load cropping %} {% for object in objects %} {% cropped_thumbnail
+          object ratiofieldname %}
 
           <img
             src="{% cropped_thumbnail user.profile 'cropping' scale=1.5%}"
@@ -265,7 +293,6 @@
           {% endfor %}
         </a>
       </div>
-      <!--↑ end of Com3). ↑-->
     </div>
 
     <div id="mySidenav" class="navBar">
@@ -276,7 +303,6 @@
 
     <div class="spacerFrame"></div>
 
-    <!--pop out menu-->
     <div id="mySearchWindow" class="linkWindow">
       <form method="GET" action="{% url 'search_items' %}">
         {% csrf_token %}
@@ -291,13 +317,8 @@
       >
     </div>
 
-    {% block content %}
+    {% block content %} {% endblock %}
 
-    <!--page content-->
-
-    {% endblock %}
-    <!--↑ ↑-->
-    <!--script for pop out menu-->
     <footer class="py-5 bg-dark">
       <div class="container">
         <p class="m-0 text-center text-white">
@@ -308,10 +329,10 @@
     <script>
       function toggleNav() {
         var element = document.getElementById("mySidenav");
-        if (element.style.width == "15vw") {
+        if (element.style.width == "21vw") {
           element.style.width = "0";
         } else {
-          element.style.width = "15vw";
+          element.style.width = "21vw";
         }
       }
 
@@ -348,15 +369,14 @@
 
       function toggleSearchWindow() {
         var element = document.getElementById("mySearchWindow");
-        // Toggle visibility based on current state
         if (element.style.height == "0px" || element.style.height == "") {
-          element.style.height = "12vh"; // Open the search bar dropdown
-          element.style.visibility = "visible"; // Make visible
-          element.style.opacity = "1"; // Make fully opaque
+          element.style.height = "12vh";
+          element.style.visibility = "visible";
+          element.style.opacity = "1";
         } else {
-          element.style.height = "0px"; // Close the search bar dropdown
-          element.style.visibility = "hidden"; // Hide the element
-          element.style.opacity = "0"; // Make transparent
+          element.style.height = "0px";
+          element.style.visibility = "hidden";
+          element.style.opacity = "0";
         }
       }
     </script>
