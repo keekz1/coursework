@@ -21,113 +21,85 @@
       crossorigin="anonymous"
     ></script>
     <style>
-      .stacisFrame {
-        display: grid;
-        grid-template-columns: 25vw 50vw 25vw;
-        grid-template-rows: auto;
+      .top-bar {
+        display: flex;
         align-items: center;
-        background: #edf6fd;
+        justify-content: space-between;
+        background-color: #edf6fd;
         color: #c5c3c0;
-        height: 15vh;
-        padding: 0 1rem; /* Added padding for spacing */
+        padding: 1rem;
+        position: relative;
       }
 
       .logoFrame {
-        grid-column: 1;
+        flex: 1;
+      }
+
+      .navigation-items {
         display: flex;
-        justify-content: flex-start;
         align-items: center;
-        height: 100%;
-        /*padding: 0 1rem;*/
+        gap: 1rem; /* Adjust gap between items */
       }
 
       .logo {
-        max-height: 80%;
+        max-height: 100%;
         max-width: 100%;
-      }
-
-      @media (max-width: fixed) {
-        .logo {
-          max-height: none; /* Remove max-height to allow logo to expand */
-          max-width: none; /* Remove max-width to allow logo to expand */
-        }
-
-        /* Adjust other styles as needed for smaller screens */
-      }
-
-      .Frame3 {
-        grid-column: 2;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        align-items: center;
-        justify-items: center;
-        height: 100%;
-        padding: 0 1rem;
-      }
-
-      .SearchFrame,
-      .MenuHomeFrame,
-      .CartFrame,
-      .ProfileFrame {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-        padding: 0 0.5rem;
-      }
-
-      .SearchFrame svg {
-        width: 2.5rem;
-        height: 2.5rem;
-      }
-
-      .MenuHomeFrame span {
-        font-size: 2.5rem;
-        cursor: pointer;
       }
 
       .CartFrame .btn {
         display: flex;
         align-items: center;
         font-size: 1.5rem;
+        text-decoration: none;
+        color: black;
       }
 
       .CartFrame .badge {
         font-size: 1rem;
+        position: relative;
+        top: -0.5rem;
+        right: -0.5rem;
+        min-width: 1.5rem;
+        padding: 0.25rem;
+        border-radius: 50%;
+        background-color: #343a40;
+        color: black;
+        text-align: center;
       }
 
       .ProfileFrame {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-        padding: 0 1rem;
-      }
-
-      .avatar {
-        vertical-align: middle;
-        width: 3rem;
-        height: 3rem;
-        border-radius: 50%;
+        margin-left: auto; /* Push ProfileFrame to the right */
       }
 
       @media (max-width: 576px) {
+        .top-bar {
+          flex-wrap: wrap;
+          gap: 0.5rem; /* Adjust gap between items on smaller screens */
+        }
+
         .logoFrame {
-          width: fixed;
+          flex: 0 0 25%;
+          max-width: 25%;
         }
 
-        .Frame3 {
-          padding: 0 0.5rem;
+        .navigation-items {
+          flex: 1;
+          justify-content: flex-end;
+          gap: 0.5rem; /* Adjust gap between items */
         }
 
-        .SearchFrame svg,
-        .MenuHomeFrame span,
+        .SearchFrame svg {
+          width: 2.5rem;
+          height: 2.5rem;
+        }
+
+        .MenuHomeFrame span {
+          font-size: 2.5rem;
+          cursor: pointer;
+        }
+
         .CartFrame .btn {
           font-size: 1.5rem;
-        }
-
-        .CartFrame .btn {
-          font-size: 1.25rem;
         }
 
         .CartFrame .badge {
@@ -135,40 +107,12 @@
         }
 
         .ProfileFrame {
-          padding: 0 0.5rem;
+          margin-left: 0;
         }
 
         .avatar {
           width: 2rem;
           height: 2rem;
-        }
-
-        .CartFrame {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 100%;
-          padding: 0 0.5rem;
-        }
-
-        .CartFrame .btn {
-          display: flex;
-          align-items: center;
-          font-size: 1.5rem;
-          position: relative;
-        }
-
-        .CartFrame .badge {
-          font-size: 1rem;
-          position: absolute;
-          top: -0.5rem;
-          right: -0.5rem;
-          min-width: 1.5rem;
-          padding: 0.25rem;
-          border-radius: 50%;
-          background-color: #343a40;
-          color: white;
-          text-align: center;
         }
 
         .linkWindow {
@@ -242,18 +186,16 @@
   </head>
   <body>
     <!--Com3). ↓The nav Bar↓-->
-    <div class="stacisFrame">
+    <div class="top-bar">
       <div class="logoFrame">
         <a href="{% url 'home' %}">
           <img src="{% static 'img/logo.png' %}" alt="logo" class="logo" />
         </a>
       </div>
 
-      <!--↑ end of Com4). ↑-->
-      <div class="Frame3">
+      <div class="navigation-items">
         <div class="SearchFrame">
           <span onclick="toggleSearchWindow()">
-            <a href="" target="iframe_a"></a>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               height="42"
@@ -268,39 +210,35 @@
         </div>
 
         <div class="MenuHomeFrame">
-          <span onclick="toggleNav()">&#9776; </span>
+          <span onclick="toggleNav()">&#9776;</span>
         </div>
 
         <div class="CartFrame">
-          <a
-            href="{% url 'cart-summary' %}"
-            class="btn btn-outline-dark"
-            style="border: 0; font-size: 5vh"
-          >
+          <a href="{% url 'cart-summary' %}" class="btn btn-outline-dark">
             <i class="bi-cart-fill me-1"></i>
             <span
-              class="badge bg-dark text-white ms-1 rounded-pill"
+              class="badge bg-dark text-white rounded-pill"
               id="cart_quantity"
             >
-              {{ cart|length}}
+              {{ cart|length }}
             </span>
           </a>
         </div>
-      </div>
 
-      <div class="ProfileFrame">
-        <a href="{% url 'profile' %}">
-          {% load cropping %} {% for object in objects %} {% cropped_thumbnail
-          object ratiofieldname %}
+        <div class="ProfileFrame">
+          <a href="{% url 'profile' %}">
+            {% load cropping %} {% for object in objects %} {% cropped_thumbnail
+            object ratiofieldname %}
 
-          <img
-            src="{% cropped_thumbnail user.profile 'cropping' scale=1.5%}"
-            default="background.PNG"
-            alt="avatar"
-            class="avatar"
-          />
-          {% endfor %}
-        </a>
+            <img
+              src="{% cropped_thumbnail user.profile 'cropping' scale=1.5%}"
+              default="background.PNG"
+              alt="avatar"
+              class="avatar"
+            />
+            {% endfor %}
+          </a>
+        </div>
       </div>
     </div>
 
