@@ -34,7 +34,7 @@
 
       .logoFrame {
         grid-column: 1;
-        display: flex;Q
+        display: flex;
         justify-content: flex-start;
         align-items: center;
         height: 100%;
@@ -44,6 +44,15 @@
       .logo {
         max-height: 80%;
         max-width: 100%;
+      }
+
+      @media (max-width: fixed) {
+        .logo {
+          max-height: none; /* Remove max-height to allow logo to expand */
+          max-width: none; /* Remove max-width to allow logo to expand */
+        }
+
+        /* Adjust other styles as needed for smaller screens */
       }
 
       .Frame3 {
@@ -104,9 +113,8 @@
 
       @media (max-width: 576px) {
         .logoFrame {
-          width:100%;
+          width: fixed;
         }
-
 
         .Frame3 {
           padding: 0 0.5rem;
